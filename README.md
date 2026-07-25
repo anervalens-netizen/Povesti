@@ -24,6 +24,13 @@ docker compose up -d --build
 
 Deschide `http://127.0.0.1:8090`. Pentru acces prin Tailscale sau proxy, modifică bindingul portului după arhitectura ta.
 
+Pe serverul principal, Caddy accesează containerul exclusiv prin rețeaua Docker
+internă:
+
+```bash
+docker compose -f docker-compose.yml -f deploy/docker-compose.primary.yml up -d --build
+```
+
 ## Test fără model sau cost
 
 Implicit aplicația folosește:

@@ -1,0 +1,10 @@
+services:
+  povesti:
+    networks:
+      - default
+      - unihub-net
+
+networks:
+  unihub-net:
+    external: true
+

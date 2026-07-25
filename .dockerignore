@@ -1,0 +1,14 @@
+.git
+.github
+.venv
+.env
+.pytest_cache
+**/__pycache__
+**/*.py[cod]
+data/*
+media/*
+voices/*.wav
+voices/*.mp3
+voices/*.flac
+voices/*.m4a
+
