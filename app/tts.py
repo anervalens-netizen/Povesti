@@ -20,6 +20,10 @@ class TTSProvider(ABC):
     def voice_fingerprint(self, voice: str) -> str:
         return voice
 
+    def cache_identity(self) -> str:
+        """Stable, secret-free identity for every setting that changes audio output."""
+        return self.name
+
     @abstractmethod
     def synthesize(
         self, *, text: str, voice: str, instructions: str, output: Path
@@ -29,6 +33,9 @@ class TTSProvider(ABC):
 
 class MockTTSProvider(TTSProvider):
     name = "mock"
+
+    def cache_identity(self) -> str:
+        return "mock|wav|sample_rate=16000|algorithm=v1"
 
     def synthesize(
         self, *, text: str, voice: str, instructions: str, output: Path
@@ -57,6 +64,8 @@ OPENAI_VOICE_MAP = {
 
 class OpenAITTSProvider(TTSProvider):
     name = "openai"
+    speed = 0.92
+    response_format = "wav"
 
     def __init__(self, settings: Settings):
         from openai import OpenAI
@@ -69,6 +78,22 @@ class OpenAITTSProvider(TTSProvider):
             kwargs["base_url"] = settings.openai_tts_base_url
         self.client = OpenAI(**kwargs)
         self.model = settings.openai_tts_model
+        self.base_url = (
+            settings.openai_tts_base_url.rstrip("/")
+            if settings.openai_tts_base_url
+            else "https://api.openai.com/v1"
+        )
+
+    def cache_identity(self) -> str:
+        return "|".join(
+            (
+                self.name,
+                self.base_url,
+                self.model,
+                self.response_format,
+                f"speed={self.speed}",
+            )
+        )
 
     def synthesize(
         self, *, text: str, voice: str, instructions: str, output: Path
@@ -79,20 +104,33 @@ class OpenAITTSProvider(TTSProvider):
             voice=OPENAI_VOICE_MAP.get(voice, voice),
             input=text,
             instructions=instructions,
-            response_format="wav",
-            speed=0.92,
+            response_format=self.response_format,
+            speed=self.speed,
         ) as response:
             response.stream_to_file(output)
 
 
 class OpenAICompatibleTTSProvider(TTSProvider):
     name = "openai-compatible"
+    speed = 0.92
+    response_format = "wav"
 
     def __init__(self, settings: Settings):
         self.base_url = settings.local_tts_base_url.rstrip("/")
         self.api_key = settings.local_tts_api_key
         self.model = settings.local_tts_model
         self.timeout = settings.tts_timeout_seconds
+
+    def cache_identity(self) -> str:
+        return "|".join(
+            (
+                self.name,
+                self.base_url,
+                self.model,
+                self.response_format,
+                f"speed={self.speed}",
+            )
+        )
 
     def synthesize(
         self, *, text: str, voice: str, instructions: str, output: Path
@@ -105,8 +143,8 @@ class OpenAICompatibleTTSProvider(TTSProvider):
             "voice": voice,
             "input": text,
             "instructions": instructions,
-            "response_format": "wav",
-            "speed": 0.92,
+            "response_format": self.response_format,
+            "speed": self.speed,
         }
         with httpx.Client(timeout=self.timeout) as client:
             response = client.post(
@@ -122,6 +160,7 @@ class HiggsTTSProvider(TTSProvider):
 
     name = "higgs"
     prefers_tts_text = True
+    response_format = "wav"
 
     def __init__(self, settings: Settings):
         self.base_url = settings.higgs_base_url.rstrip("/")
@@ -141,6 +180,21 @@ class HiggsTTSProvider(TTSProvider):
     def voice_fingerprint(self, voice: str) -> str:
         return self.voices.fingerprint(voice)
 
+    def cache_identity(self) -> str:
+        return "|".join(
+            (
+                self.name,
+                self.base_url,
+                self.model,
+                self.response_format,
+                f"temperature={self.temperature}",
+                f"top_k={self.top_k}",
+                f"max_new_tokens={self.max_new_tokens}",
+                f"seed={self.seed}",
+                f"require_references={self.require_references}",
+            )
+        )
+
     def synthesize(
         self, *, text: str, voice: str, instructions: str, output: Path
     ) -> None:
@@ -152,7 +206,7 @@ class HiggsTTSProvider(TTSProvider):
             "model": self.model,
             "voice": voice,
             "input": text,
-            "response_format": "wav",
+            "response_format": self.response_format,
             "temperature": self.temperature,
             "top_k": self.top_k,
             "max_new_tokens": self.max_new_tokens,
