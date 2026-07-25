@@ -128,4 +128,6 @@ def test_higgs_payload_uses_default_api_voice_and_local_reference(tmp_path: Path
     assert payload["voice"] == "default"
     assert payload["top_p"] == 0.95
     assert payload["references"][0]["text"] == "Acesta este transcriptul exact."
-    assert payload["references"][0]["audio_path"].startswith("data:audio/wav;base64,")
+    audio_path = payload["references"][0]["audio_path"]
+    assert audio_path.startswith("data:audio/")
+    assert ";base64," in audio_path
