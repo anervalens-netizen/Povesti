@@ -1,30 +1,40 @@
-# Formatul poveștilor
+# Formatul poveștilor — schema v2
 
-Fiecare poveste are propriul director:
+Fiecare episod este păstrat într-un singur fișier ușor de revizuit:
 
 ```text
-stories/<story-id>/
-├── story.json
-└── scenes/
-    ├── 01-introducere.json
-    ├── 02-alegere.json
-    └── 03-final.json
+stories/<id>/story.json
 ```
 
-`story.json` conține metadatele, personajele și profilurile vocale. Fiecare scenă este separată, ca să poată fi rescrisă, revizuită sau regenerată fără modificarea întregului episod.
+Fișierul conține metadatele, personajele și toate scenele. Catalogul păstrează compatibilitate cu vechiul format împărțit în `scenes/`, dar poveștile v2 noi sunt salvate într-un singur fișier pentru copiere, audit și versionare mai simple.
 
-- `characters`: profilurile de voce ale personajelor.
-- `segments`: bucățile rostite separat. Fiecare are rol, indicație de interpretare și pauză.
-- `choices`: alegeri care trimit către alte scene.
-- `next_scene`: continuarea liniară.
-- `kind: ending`: final fără continuare.
+## Metadatele episodului
 
-Separarea pe segmente permite mai multe voci și regenerarea unei singure replici fără refacerea întregii povești. Playerul redă segmentele în ordine și aplică `pause_after_ms` între ele.
+`story.json` conține titlul, vârsta, obiectivele, personajele, `narrator_voice`, scena de început și lista `scenes`. Câmpul `voice` al fiecărui personaj indică un profil din `voices/voices.json`, nu un nume de voce OpenAI.
 
-## Reguli editoriale
+## Segment audio
 
-1. Alexandru rezolvă probleme prin curiozitate, cooperare și grijă.
-2. Lecțiile apar natural; nu folosim frică, rușinare sau pedepse.
-3. Alegerile sunt sigure și duc la progres, inclusiv când alegerea inițială nu este optimă.
-4. Frazele sunt scurte și clare pentru 2–6 ani.
-5. Fiecare poveste se termină calm și reconfortant.
+```json
+{
+  "role": "tati",
+  "text": "Sunt aici și te ajut.",
+  "tts_text": "<|emotion:affection|><|prosody:speed_slow|>Sunt aici și te ajut.",
+  "delivery": "cald și liniștitor",
+  "pause_after_ms": 900
+}
+```
+
+- `text`: text curat pentru interfață și subtitrare;
+- `tts_text`: input complet pentru Higgs TTS 3;
+- `delivery`: fallback semantic pentru alți furnizori și pentru drafturi;
+- `pause_after_ms`: pauza tehnică după fișierul WAV.
+
+`tts_text` este opțional în schemă pentru compatibilitate, dar validatorul proiectului îl cere tuturor episoadelor publicate.
+
+## Scene și ramificații
+
+- `story`: continuă prin `next_scene`;
+- `choice`: minimum două opțiuni, fiecare cu `next_scene`;
+- `ending`: nu poate continua.
+
+Validatorul verifică rolurile, referințele, unicitatea ID-urilor și faptul că toate scenele sunt accesibile din `start_scene`.

@@ -1,63 +1,67 @@
 # Povești pentru Alexandru
 
-Studio local-first pentru scrierea, validarea, generarea audio și redarea poveștilor interactive. Alexandru este personajul principal, iar seria inițială folosește mașinuțe, dialog, alegeri și lecții blânde.
+Studio local-first pentru povești audio interactive în limba română. Alexandru este personajul principal, iar fiecare episod este pregătit pentru **Higgs TTS 3** cu dialog pe mai multe voci, emoții, șoapte, pauze, ritm și efecte discrete.
 
 ## Ce conține
 
-- bibliotecă web și player interactiv cu ramificații;
-- format solid de poveste: scene, segmente, roluri, pauze și alegeri;
-- voci diferite pe personaje;
-- TTS OpenAI (`gpt-4o-mini-tts`), TTS local OpenAI-compatible sau mod mock;
-- generator de povești prin OpenAI ori LLM local compatibil;
-- cache audio pe segment: regenerezi doar replica modificată;
-- 8 episoade complete și un backlog cu 20 de idei;
+- bibliotecă web și player cu alegeri și ramificații;
+- 8 episoade complete, 69 de scene și 415 replici regizate;
+- câmp separat `text` pentru interfață și `tts_text` gata de trimis la Higgs;
+- taguri Higgs validate automat: emoție, stil, prosodie, pauze și SFX;
+- câte o referință vocală pentru narator, Alexandru, Tati și patru tipuri de mașinuțe;
+- generare separată pe replică, cache și redare continuă cu pauze exacte;
+- adaptor nativ pentru SGLang-Omni/vLLM-Omni `/v1/audio/speech`;
+- OpenAI TTS și alte servere OpenAI-compatible păstrate ca alternative;
 - Docker, validare automată și teste.
 
-## Instalare rapidă
+## Instalare pe server
 
 ```bash
 cp .env.example .env
 docker compose up -d --build
 ```
 
-Deschide `http://127.0.0.1:8090`. Pentru acces din rețea modifică bindingul Docker sau publică aplicația prin Tailscale/Authentik. Implicit nu este expusă extern.
+Deschide `http://127.0.0.1:8090`. Pentru acces prin Tailscale sau proxy, modifică bindingul portului după arhitectura ta.
 
-### Instalare fără Docker
+## Test fără model sau cost
 
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-cp .env.example .env
-.venv/bin/python -m app.main
-```
-
-## Test fără cost
-
-Configurația implicită folosește `TTS_PROVIDER=mock`. Apasă „Generează audio”: aplicația creează fișiere WAV silențioase și verifică întregul player, scenele și alegerile.
-
-## OpenAI TTS
+Implicit aplicația folosește:
 
 ```env
-TTS_PROVIDER=openai
-OPENAI_API_KEY=...
-OPENAI_TTS_MODEL=gpt-4o-mini-tts
+TTS_PROVIDER=mock
 ```
 
-Cheia rămâne pe server. Aplicația trimite separat fiecare replică, împreună cu vocea personajului, indicațiile scenei și pauzele. Modelul OpenAI acceptă maximum 4096 de caractere per cerere; schema validează această limită.
+Aceasta creează WAV-uri silențioase și verifică integral playerul, ramificațiile, cache-ul și pauzele.
 
-## TTS local pe PC-ul de gaming
+## Activare Higgs TTS 3
+
+1. Pornește modelul pe PC-ul de gaming și expune endpointul `/v1/audio/speech` prin Tailscale.
+2. Înregistrează sau generează cele 7 mostre vocale descrise în [`voices/README.md`](voices/README.md).
+3. Configurează serverul aplicației:
 
 ```env
-TTS_PROVIDER=openai-compatible
-LOCAL_TTS_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
-LOCAL_TTS_MODEL=modelul-tau
+TTS_PROVIDER=higgs
+HIGGS_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
+HIGGS_MODEL=bosonai/higgs-tts-3-4b
+HIGGS_REQUIRE_REFERENCES=true
 ```
 
-Motorul local trebuie să expună `POST /audio/speech` și să returneze WAV. Poate folosi XTTS, Piper, Kokoro sau alt motor; aplicația rămâne neschimbată. Fiecare rol poate avea altă voce.
+Aplicația trimite fiecare replică separat, împreună cu `tts_text` și mostra vocală a personajului. Mostra este transmisă ca data URL, deci PC-ul de gaming nu are nevoie de acces la discul serverului.
+
+## Episoade
+
+1. **Alexandru și Marele Garaj Fermecat** — grijă față de mașinuțe.
+2. **Cursa Pieselor Pierdute** — ordine și căutare cu un plan.
+3. **Podul Culorilor** — culori, semnale și răbdare.
+4. **Mașinuța care nu voia să împartă** — rând, limite și cooperare.
+5. **Noaptea Farurilor Curajoase** — teamă, respirație și ajutor.
+6. **Misiunea Pompierilor de Jucărie** — calm și siguranță.
+7. **Cursa fără Grabă** — frustrare, verificare și perseverență.
+8. **Atelierul Reparațiilor** — diagnostic, sortare și reparație atentă.
 
 ## Generare de povești noi
 
-Generatorul este dezactivat implicit. Pentru OpenAI:
+Generatorul LLM produce direct schema v2: text curat, `tts_text` Higgs, roluri vocale, pauze și ramificații. Drafturile sunt validate înainte de salvare, dar trebuie revizuite de un adult înainte de redare.
 
 ```env
 LLM_PROVIDER=openai
@@ -65,23 +69,19 @@ OPENAI_API_KEY=...
 STORY_LLM_MODEL=gpt-5-mini
 ```
 
-Pentru un server local OpenAI-compatible:
+Poți folosi și un LLM local OpenAI-compatible.
 
-```env
-LLM_PROVIDER=openai-compatible
-LLM_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
-LLM_API_KEY=
-STORY_LLM_MODEL=model-local
-```
-
-Drafturile sunt validate înainte de salvare. Un adult trebuie să le citească înainte de redare.
-
-## Comenzi
+## Validare
 
 ```bash
 python scripts/validate_stories.py
-python scripts/render_story.py alexandru-marele-garaj-fermecat
 pytest -q
 ```
 
-Documentație: [formatul poveștilor](docs/STORY_FORMAT.md), [furnizori TTS](docs/TTS_PROVIDERS.md), [episoade viitoare](docs/EPISODE_BACKLOG.md).
+## Confidențialitate și licență
+
+- Nu urca mostrele vocale în Git; repo-ul este public, iar fișierele audio din `voices/` sunt ignorate.
+- Folosește numai voci proprii, sintetice sau înregistrate cu acord explicit. Pentru vocea unui copil, păstrează fișierul exclusiv local.
+- Modelul Higgs TTS 3 are propria licență Boson. Acest repo nu distribuie modelul sau greutățile. Verifică [`docs/HIGGS_TTS_3.md`](docs/HIGGS_TTS_3.md) înainte de publicare ori utilizare comercială.
+
+Documentație: [Higgs TTS 3](docs/HIGGS_TTS_3.md), [format povești](docs/STORY_FORMAT.md), [furnizori TTS](docs/TTS_PROVIDERS.md).

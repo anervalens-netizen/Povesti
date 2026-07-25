@@ -11,4 +11,5 @@ services:
       - ./stories:/app/stories
       - ./media:/app/media
       - ./data:/app/data
+      - ./voices:/app/voices:ro
     restart: unless-stopped

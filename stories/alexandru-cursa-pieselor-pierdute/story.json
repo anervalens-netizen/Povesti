@@ -1,45 +1,449 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "alexandru-cursa-pieselor-pierdute",
   "episode": 2,
   "title": "Alexandru și Cursa Pieselor Pierdute",
-  "subtitle": "O misiune despre ordine și găsirea lucrurilor.",
-  "summary": "Când piesele pistei dispar prin cameră, Alexandru organizează o echipă de căutare și descoperă că fiecare obiect are locul lui.",
+  "subtitle": "O aventură despre ordine, răbdare și căutarea cu un plan.",
+  "summary": "Când piesele pistei dispar prin cameră, Alexandru conduce o echipă de căutare și descoperă că fiecare obiect are locul lui.",
   "age_min": 2,
   "age_max": 6,
-  "estimated_minutes": 7,
+  "estimated_minutes": 10,
   "themes": [
     "ordine",
     "memorie",
-    "cooperare"
+    "cooperare",
+    "răbdare"
   ],
   "learning_goals": [
     "să strângă după joacă",
     "să caute sistematic",
+    "să nu învinovățească fără dovadă",
     "să ceară ajutor"
   ],
-  "narrator_instructions": "Narează în limba română, cu pronunție naturală. Voce caldă, protectoare și jucăușă, pentru un copil de aproximativ 3 ani. Ritm lent, propoziții clare, pauze naturale. Diferențiază subtil personajele, fără teatralitate exagerată. Nu rosti indicațiile de interpretare.",
+  "narrator_instructions": "Textul audio este pregătit pentru Higgs TTS 3. Fiecare segment conține tts_text cu taguri oficiale de emoție, stil, prosodie, pauze și efecte. Textul din câmpul text rămâne curat pentru interfață.",
+  "narrator_voice": "narator",
   "characters": [
     {
       "id": "alexandru",
       "name": "Alexandru",
-      "description": "curios, vesel și atent",
-      "voice": "marin",
-      "voice_instructions": "Voce de copil sugerată subtil: luminoasă, curioasă, fără caricatură."
+      "description": "",
+      "voice": "alexandru",
+      "voice_instructions": ""
     },
     {
       "id": "tati",
       "name": "Tati",
-      "description": "calm, afectuos și glumeț",
-      "voice": "cedar",
-      "voice_instructions": "Voce joasă, caldă, calmă și ușor amuzată."
+      "description": "",
+      "voice": "tati",
+      "voice_instructions": ""
     },
     {
       "id": "buldo",
       "name": "Buldo",
-      "voice": "echo",
-      "voice_instructions": "Voce robustă, prietenoasă și metodică."
+      "description": "",
+      "voice": "masinuta-grava",
+      "voice_instructions": ""
+    },
+    {
+      "id": "fulger",
+      "name": "Fulger Roșu",
+      "description": "",
+      "voice": "masinuta-energica",
+      "voice_instructions": ""
     }
   ],
-  "start_scene": "start"
+  "start_scene": "start",
+  "scenes": [
+    {
+      "id": "start",
+      "title": "Pista cea mare",
+      "kind": "story",
+      "direction": "",
+      "segments": [
+        {
+          "role": "narrator",
+          "text": "Într-o după-amiază, Alexandru și Tati construiau cea mai lungă pistă din casă.",
+          "tts_text": "<|emotion:affection|><|prosody:speed_slow|>Într-o după-amiază, Alexandru și Tati construiau cea mai lungă pistă din casă.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "alexandru",
+          "text": "Aici punem bucla și aici un salt uriaș!",
+          "tts_text": "<|emotion:enthusiasm|>Aici punem bucla și aici un salt uriaș!",
+          "delivery": "",
+          "pause_after_ms": 800
+        },
+        {
+          "role": "tati",
+          "text": "Salt uriaș, dar sigur. Întâi verificăm piesele.",
+          "tts_text": "<|emotion:amusement|><|prosody:speed_slow|>Salt uriaș, dar sigur. Întâi verificăm piesele.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "narrator",
+          "text": "Fulger Roșu a făcut o tură de probă și s-a oprit înainte de pod.",
+          "tts_text": "<|emotion:enthusiasm|><|prosody:speed_fast|>Fulger Roșu a făcut o tură de probă și s-a oprit înainte de pod.",
+          "delivery": "",
+          "pause_after_ms": 800
+        },
+        {
+          "role": "fulger",
+          "text": "Unde este podul albastru? Și unde sunt clemele portocalii?",
+          "tts_text": "<|emotion:confusion|>Unde este podul albastru? Și unde sunt clemele portocalii?",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "alexandru",
+          "text": "Erau aici!",
+          "tts_text": "<|emotion:surprise|>Erau aici!",
+          "delivery": "",
+          "pause_after_ms": 800
+        }
+      ],
+      "choices": [],
+      "next_scene": "haos"
+    },
+    {
+      "id": "haos",
+      "title": "Căutarea grăbită",
+      "kind": "story",
+      "direction": "",
+      "segments": [
+        {
+          "role": "alexandru",
+          "text": "Poate le-a luat Fulger. El merge cel mai repede.",
+          "tts_text": "<|emotion:anger|>Poate le-a luat Fulger. El merge cel mai repede.",
+          "delivery": "",
+          "pause_after_ms": 800
+        },
+        {
+          "role": "fulger",
+          "text": "Eu? Am stat la start.",
+          "tts_text": "<|emotion:surprise|>Eu? Am stat la start.",
+          "delivery": "",
+          "pause_after_ms": 800
+        },
+        {
+          "role": "narrator",
+          "text": "Alexandru a ridicat perne, a răsturnat o cutie și a împins alte mașinuțe. Camera devenea mai dezordonată.",
+          "tts_text": "<|emotion:contemplation|><|prosody:speed_slow|>Alexandru a ridicat perne, a răsturnat o cutie și a împins alte mașinuțe. Camera devenea mai dezordonată.",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "tati",
+          "text": "Stop de service.",
+          "tts_text": "<|emotion:determination|><|prosody:speed_slow|>Stop de service.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "tati",
+          "text": "Nu spunem că cineva a luat ceva dacă nu știm. Și când căutăm în grabă, putem pierde și mai multe.",
+          "tts_text": "<|emotion:affection|><|prosody:speed_slow|>Nu spunem că cineva a luat ceva dacă nu știm. Și când căutăm în grabă, putem pierde și mai multe.",
+          "delivery": "",
+          "pause_after_ms": 1200
+        },
+        {
+          "role": "alexandru",
+          "text": "Îmi pare rău, Fulger. M-am grăbit.",
+          "tts_text": "<|emotion:sadness|>Îmi pare rău, Fulger. M-am grăbit.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "fulger",
+          "text": "Căutăm împreună.",
+          "tts_text": "<|emotion:affection|>Căutăm împreună.",
+          "delivery": "",
+          "pause_after_ms": 800
+        },
+        {
+          "role": "narrator",
+          "text": "Atunci a venit Buldo, buldozerul galben: brum... brum...",
+          "tts_text": "<|emotion:amusement|>Atunci a venit Buldo, buldozerul galben: brum... brum...",
+          "delivery": "",
+          "pause_after_ms": 900
+        }
+      ],
+      "choices": [],
+      "next_scene": "plan"
+    },
+    {
+      "id": "plan",
+      "title": "Planul lui Buldo",
+      "kind": "story",
+      "direction": "",
+      "segments": [
+        {
+          "role": "buldo",
+          "text": "Pentru o misiune mare avem nevoie de un plan mic și clar.",
+          "tts_text": "<|emotion:determination|><|prosody:speed_slow|>Pentru o misiune mare avem nevoie de un plan mic și clar.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "buldo",
+          "text": "Împărțim camera în patru zone: covorul, patul, canapeaua și cutiile.",
+          "tts_text": "<|emotion:contemplation|><|prosody:speed_slow|>Împărțim camera în patru zone: covorul, patul, canapeaua și cutiile.",
+          "delivery": "",
+          "pause_after_ms": 1100
+        },
+        {
+          "role": "alexandru",
+          "text": "Căutăm într-un singur loc și îl lăsăm ordonat.",
+          "tts_text": "<|emotion:pride|>Căutăm într-un singur loc și îl lăsăm ordonat.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "narrator",
+          "text": "Hai să numărăm zonele: unu... ... doi... ... trei... ... patru.",
+          "tts_text": "<|emotion:contentment|><|prosody:speed_very_slow|>Hai să numărăm zonele: unu... <|prosody:pause|> doi... <|prosody:pause|> trei... <|prosody:pause|> patru.",
+          "delivery": "",
+          "pause_after_ms": 1800
+        },
+        {
+          "role": "buldo",
+          "text": "Alexandru, tu conduci. Unde începem?",
+          "tts_text": "<|emotion:pride|>Alexandru, tu conduci. Unde începem?",
+          "delivery": "",
+          "pause_after_ms": 1200
+        }
+      ],
+      "choices": [],
+      "next_scene": "alegere"
+    },
+    {
+      "id": "alegere",
+      "title": "Alege prima zonă",
+      "kind": "choice",
+      "direction": "",
+      "segments": [
+        {
+          "role": "narrator",
+          "text": "Lângă pat era un munte de plușuri. Sub canapea era un tunel întunecat.",
+          "tts_text": "<|emotion:awe|><|prosody:speed_slow|>Lângă pat era un munte de plușuri. Sub canapea era un tunel întunecat.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "alexandru",
+          "text": "Putem începe lângă pat sau sub canapea.",
+          "tts_text": "<|emotion:contemplation|>Putem începe lângă pat sau sub canapea.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "buldo",
+          "text": "Important este să terminăm zona aleasă.",
+          "tts_text": "<|emotion:determination|>Important este să terminăm zona aleasă.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "narrator",
+          "text": "Tu ce alegi?",
+          "tts_text": "<|emotion:affection|>Tu ce alegi?",
+          "delivery": "",
+          "pause_after_ms": 1700
+        }
+      ],
+      "choices": [
+        {
+          "id": "pat",
+          "label": "Căutăm lângă pat",
+          "prompt": "Mutăm plușurile pe rând.",
+          "next_scene": "plusuri"
+        },
+        {
+          "id": "canapea",
+          "label": "Căutăm sub canapea",
+          "prompt": "Folosim lanterna și cerem ajutor.",
+          "next_scene": "canapea"
+        }
+      ],
+      "next_scene": null
+    },
+    {
+      "id": "plusuri",
+      "title": "Muntele de plușuri",
+      "kind": "story",
+      "direction": "",
+      "segments": [
+        {
+          "role": "narrator",
+          "text": "Alexandru a mutat ursulețul, iepurașul și dinozaurul fără să îi arunce.",
+          "tts_text": "<|emotion:contentment|>Alexandru a mutat ursulețul, iepurașul și dinozaurul fără să îi arunce.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "alexandru",
+          "text": "Nimic sub urs. Nimic sub iepure. Dar sub dinozaur...",
+          "tts_text": "<|emotion:contemplation|>Nimic sub urs. Nimic sub iepure. Dar sub dinozaur...",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "narrator",
+          "text": "Cling! A apărut o clemă portocalie.",
+          "tts_text": "<|emotion:surprise|>Cling! A apărut o clemă portocalie.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "fulger",
+          "text": "Prima piesă!",
+          "tts_text": "<|emotion:elation|>Prima piesă!",
+          "delivery": "",
+          "pause_after_ms": 700
+        },
+        {
+          "role": "buldo",
+          "text": "Acum punem plușurile înapoi.",
+          "tts_text": "<|emotion:determination|>Acum punem plușurile înapoi.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "tati",
+          "text": "Următorul indiciu este lângă canapea.",
+          "tts_text": "<|emotion:awe|><|style:whispering|>Următorul indiciu este lângă canapea.",
+          "delivery": "",
+          "pause_after_ms": 900
+        }
+      ],
+      "choices": [],
+      "next_scene": "canapea"
+    },
+    {
+      "id": "canapea",
+      "title": "Tunelul de sub canapea",
+      "kind": "story",
+      "direction": "",
+      "segments": [
+        {
+          "role": "narrator",
+          "text": "Alexandru s-a aplecat, dar nu a băgat mâna unde nu vedea.",
+          "tts_text": "<|emotion:contentment|><|prosody:speed_slow|>Alexandru s-a aplecat, dar nu a băgat mâna unde nu vedea.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "alexandru",
+          "text": "Tati, mă ajuți cu lanterna?",
+          "tts_text": "<|emotion:determination|>Tati, mă ajuți cu lanterna?",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "tati",
+          "text": "Sigur. Cererea de ajutor este o superputere.",
+          "tts_text": "<|emotion:affection|>Sigur. Cererea de ajutor este o superputere.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "narrator",
+          "text": "Lumina a trecut peste un creion, o șosetă și ceva albastru.",
+          "tts_text": "<|emotion:awe|><|style:whispering|>Lumina a trecut peste un creion, o șosetă și ceva albastru.",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "fulger",
+          "text": "Podul!",
+          "tts_text": "<|emotion:elation|>Podul!",
+          "delivery": "",
+          "pause_after_ms": 700
+        },
+        {
+          "role": "buldo",
+          "text": "Îl scoatem cu unealta lungă, fără să ne întindem sub mobilă.",
+          "tts_text": "<|emotion:determination|>Îl scoatem cu unealta lungă, fără să ne întindem sub mobilă.",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "narrator",
+          "text": "Lângă pod erau și stâlpul și a doua clemă.",
+          "tts_text": "<|emotion:relief|>Lângă pod erau și stâlpul și a doua clemă.",
+          "delivery": "",
+          "pause_after_ms": 900
+        }
+      ],
+      "choices": [],
+      "next_scene": "final"
+    },
+    {
+      "id": "final",
+      "title": "Cursa ordinii",
+      "kind": "ending",
+      "direction": "",
+      "segments": [
+        {
+          "role": "narrator",
+          "text": "Pista a fost reparată, iar Fulger s-a așezat la start.",
+          "tts_text": "<|emotion:contentment|>Pista a fost reparată, iar Fulger s-a așezat la start.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "tati",
+          "text": "Înainte de cursă, ce facem cu piesele rămase?",
+          "tts_text": "<|emotion:contemplation|>Înainte de cursă, ce facem cu piesele rămase?",
+          "delivery": "",
+          "pause_after_ms": 1400
+        },
+        {
+          "role": "alexandru",
+          "text": "Le punem în cutie, fiecare la locul ei.",
+          "tts_text": "<|emotion:pride|>Le punem în cutie, fiecare la locul ei.",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "buldo",
+          "text": "Ne jucăm, ne bucurăm și pregătim garajul pentru aventura următoare.",
+          "tts_text": "<|emotion:affection|>Ne jucăm, ne bucurăm și pregătim garajul pentru aventura următoare.",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "fulger",
+          "text": "Vruuum! Cea mai rapidă cursă a fost posibilă datorită celei mai ordonate echipe!",
+          "tts_text": "<|emotion:elation|><|prosody:speed_fast|>Vruuum! Cea mai rapidă cursă a fost posibilă datorită celei mai ordonate echipe!",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "tati",
+          "text": "Astăzi nu ai găsit doar piesele. Ai găsit și un plan bun.",
+          "tts_text": "<|emotion:pride|>Astăzi nu ai găsit doar piesele. Ai găsit și un plan bun.",
+          "delivery": "",
+          "pause_after_ms": 1000
+        },
+        {
+          "role": "alexandru",
+          "text": "Data viitoare strângem înainte să dispară podul!",
+          "tts_text": "<|emotion:amusement|>Data viitoare strângem înainte să dispară podul!",
+          "delivery": "",
+          "pause_after_ms": 900
+        },
+        {
+          "role": "narrator",
+          "text": "Din cutie s-a auzit un clinchet mulțumit, ca un mic „mulțumesc”.",
+          "tts_text": "<|emotion:contentment|><|prosody:speed_slow|>Din cutie s-a auzit un clinchet mulțumit, ca un mic „mulțumesc”.",
+          "delivery": "",
+          "pause_after_ms": 1800
+        }
+      ],
+      "choices": [],
+      "next_scene": null
+    }
+  ]
 }

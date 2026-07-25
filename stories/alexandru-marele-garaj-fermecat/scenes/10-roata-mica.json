@@ -1,16 +1,1 @@
-{
-  "id": "roata-mica",
-  "title": "Prea mică",
-  "kind": "story",
-  "direction": "",
-  "segments": [
-    {
-      "role": "mesterica",
-      "text": "Aceasta este prea mică. Nu-i nimic că am încercat. Greșelile ne ajută să observăm mai bine.",
-      "delivery": "",
-      "pause_after_ms": 650
-    }
-  ],
-  "choices": [],
-  "next_scene": "muntele-rotilor"
-}
+{"id":"roata-mica","title":"Roata prea mică","kind":"story","direction":"","segments":[{"role":"alexandru","text":"Aceasta este ușoară.","tts_text":"<|emotion:contemplation|>Aceasta este ușoară.","delivery":"","pause_after_ms":700},{"role":"fulger","text":"Dar este prea mică. Racheta s-ar înclina și ar merge strâmb.","tts_text":"<|emotion:contemplation|><|prosody:speed_slow|>Dar este prea mică. Racheta s-ar înclina și ar merge strâmb.","delivery":"","pause_after_ms":1000},{"role":"racheta-rosie","text":"Avem nevoie de piesa potrivită, nu doar de orice piesă.","tts_text":"<|emotion:determination|>Avem nevoie de piesa potrivită, nu doar de orice piesă.","delivery":"","pause_after_ms":900},{"role":"narrator","text":"Au așezat roata mică la locul ei.","tts_text":"<|emotion:contentment|>Au așezat roata mică la locul ei.","delivery":"","pause_after_ms":900}],"choices":[],"next_scene":"roata-potrivita"}
