@@ -21,7 +21,8 @@ Fiecare segment reprezintă un singur vorbitor și un singur turn TTS. Este rand
 TTS_PROVIDER=higgs
 HIGGS_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
 HIGGS_MODEL=bosonai/higgs-tts-3-4b
-HIGGS_API_VOICE=default
+HIGGS_API_VOICE=
+HIGGS_USE_PROFILE_VOICE=false
 HIGGS_RESPONSE_FORMAT=wav
 HIGGS_TEMPERATURE=0.8
 HIGGS_TOP_P=
@@ -31,14 +32,21 @@ HIGGS_SEED=
 HIGGS_REQUIRE_REFERENCES=true
 ```
 
-`HIGGS_API_VOICE=default` este intenționat. Numele locale precum `tati` sau `masinuta-jucausa` aleg mostra din `voices/voices.json`; nu sunt voci presetate cunoscute de serverul SGLang. Identitatea personajului vine din `references`.
+`HIGGS_API_VOICE` rămâne gol pentru Higgs TTS 3, care nu are voci presetate.
+Numele locale precum `tati` sau `masinuta-jucausa` aleg mostra din
+`voices/voices.json`. Dacă un server compatibil expune explicit voci denumite,
+variabila poate fi completată. Identitatea personajului vine din `references`.
+
+Pe serverele cu registru de voci încărcate, `HIGGS_USE_PROFILE_VOICE=true`
+trimite numele profilului local în câmpul `voice` și nu mai retransmite
+referința la fiecare replică. Fișierele locale rămân sursa profilurilor și intră
+în amprenta cache.
 
 ## Payloadul transmis
 
 ```json
 {
   "model": "bosonai/higgs-tts-3-4b",
-  "voice": "default",
   "input": "<|emotion:affection|><|prosody:speed_slow|>Sunt aici și te ajut.",
   "response_format": "wav",
   "temperature": 0.8,

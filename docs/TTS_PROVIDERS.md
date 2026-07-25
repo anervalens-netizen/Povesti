@@ -10,6 +10,11 @@ HIGGS_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
 HIGGS_REQUIRE_REFERENCES=true
 ```
 
+Dacă cele șapte mostre au fost încărcate în registrul serverului
+cu aceleași nume ca profilurile locale, setează
+`HIGGS_USE_PROFILE_VOICE=true`. Requestul trimite atunci direct numele
+profilului și evită retransmiterea mostrei la fiecare replică.
+
 ## `mock`
 
 Generează WAV silențios pentru testarea playerului fără GPU sau cost.

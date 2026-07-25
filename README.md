@@ -51,11 +51,17 @@ Aceasta creează WAV-uri silențioase și verifică integral playerul, ramifica�
 TTS_PROVIDER=higgs
 HIGGS_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
 HIGGS_MODEL=bosonai/higgs-tts-3-4b
-HIGGS_API_VOICE=default
+HIGGS_API_VOICE=
+HIGGS_USE_PROFILE_VOICE=false
 HIGGS_REQUIRE_REFERENCES=true
 ```
 
-Profilurile locale aleg mostra vocală, iar requestul oficial este trimis cu `voice=default`. Aplicația transmite fiecare replică separat, împreună cu `tts_text`, mostra personajului și transcriptul exact. Mostra este transmisă ca data URL, deci PC-ul de gaming nu are nevoie de acces la discul serverului.
+Profilurile locale aleg mostra vocală. `HIGGS_API_VOICE` rămâne gol pentru
+serverele Higgs TTS 3 fără voci presetate și poate fi completat numai dacă
+serverul expune explicit voci denumite. Aplicația transmite fiecare replică
+separat, împreună cu `tts_text`, mostra personajului și transcriptul exact.
+Mostra este transmisă ca data URL, deci PC-ul de gaming nu are nevoie de acces
+la discul serverului.
 
 ## Episoade
 

@@ -131,3 +131,74 @@ def test_higgs_payload_uses_default_api_voice_and_local_reference(tmp_path: Path
     audio_path = payload["references"][0]["audio_path"]
     assert audio_path.startswith("data:audio/")
     assert ";base64," in audio_path
+
+
+def test_higgs_payload_omits_empty_api_voice(tmp_path: Path):
+    voice_dir = tmp_path / "voices"
+    voice_dir.mkdir()
+    (voice_dir / "narator.wav").write_bytes(b"RIFF-test")
+    manifest = voice_dir / "voices.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "profiles": {
+                    "narator": {
+                        "reference_audio": "narator.wav",
+                        "reference_text": "Transcript exact.",
+                        "prefix": "",
+                        "description": "test",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    provider = HiggsTTSProvider(
+        replace(
+            settings,
+            voice_dir=voice_dir,
+            voice_manifest=manifest,
+            higgs_api_voice="",
+            higgs_require_references=True,
+        )
+    )
+
+    payload = provider.build_payload(text="Poveste.", profile_voice="narator")
+
+    assert "voice" not in payload
+
+
+def test_higgs_payload_uses_uploaded_profile_voice(tmp_path: Path):
+    voice_dir = tmp_path / "voices"
+    voice_dir.mkdir()
+    (voice_dir / "narator.wav").write_bytes(b"RIFF-test")
+    manifest = voice_dir / "voices.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "profiles": {
+                    "narator": {
+                        "reference_audio": "narator.wav",
+                        "reference_text": "Transcript exact.",
+                        "prefix": "",
+                        "description": "test",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    provider = HiggsTTSProvider(
+        replace(
+            settings,
+            voice_dir=voice_dir,
+            voice_manifest=manifest,
+            higgs_use_profile_voice=True,
+            higgs_require_references=True,
+        )
+    )
+
+    payload = provider.build_payload(text="Poveste.", profile_voice="narator")
+
+    assert payload["voice"] == "narator"
+    assert "references" not in payload

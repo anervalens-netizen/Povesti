@@ -10,7 +10,7 @@ Catalogul păstrează compatibilitate cu formatul mai vechi împărțit în `sce
 
 ## Metadate și voci
 
-`story.json` conține titlul, vârsta, obiectivele, personajele, `narrator_voice`, scena de început și lista `scenes`. Câmpul `voice` indică un profil local din `voices/voices.json`, folosit pentru selectarea mostrei vocale. Requestul SGLang este trimis implicit cu `voice=default`.
+`story.json` conține titlul, vârsta, obiectivele, personajele, `narrator_voice`, scena de început și lista `scenes`. Câmpul `voice` indică un profil local din `voices/voices.json`, folosit pentru selectarea mostrei vocale. Câmpul API `voice` este omis pentru Higgs TTS 3 fără voci presetate.
 
 ## Segment audio
 

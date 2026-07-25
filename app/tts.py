@@ -166,6 +166,7 @@ class HiggsTTSProvider(TTSProvider):
         self.api_key = settings.higgs_api_key
         self.model = settings.higgs_model
         self.api_voice = settings.higgs_api_voice
+        self.use_profile_voice = settings.higgs_use_profile_voice
         self.response_format = settings.higgs_response_format
         if self.response_format != "wav":
             raise ValueError("Aplicația salvează segmente WAV; HIGGS_RESPONSE_FORMAT trebuie să fie wav")
@@ -191,6 +192,7 @@ class HiggsTTSProvider(TTSProvider):
                 self.base_url,
                 self.model,
                 f"api_voice={self.api_voice}",
+                f"use_profile_voice={self.use_profile_voice}",
                 self.response_format,
                 f"temperature={self.temperature}",
                 f"top_p={self.top_p}",
@@ -205,19 +207,24 @@ class HiggsTTSProvider(TTSProvider):
         """Build the exact official /v1/audio/speech request without sending it."""
         payload: dict[str, object] = {
             "model": self.model,
-            # Local profile names select reference clips; the serving API voice stays default.
-            "voice": self.api_voice,
             "input": text,
             "response_format": self.response_format,
             "temperature": self.temperature,
             "top_k": self.top_k,
             "max_new_tokens": self.max_new_tokens,
         }
-        references = self.voices.reference_payload(
-            profile_voice, required=self.require_references
-        )
-        if references:
-            payload["references"] = references
+        # Higgs TTS 3 has no built-in speaker. Some compatible servers expose
+        # named voices, but voice cloning must be allowed to omit this field.
+        if self.use_profile_voice:
+            payload["voice"] = profile_voice
+        elif self.api_voice:
+            payload["voice"] = self.api_voice
+        if not self.use_profile_voice:
+            references = self.voices.reference_payload(
+                profile_voice, required=self.require_references
+            )
+            if references:
+                payload["references"] = references
         if self.top_p is not None:
             payload["top_p"] = self.top_p
         if self.seed is not None:
