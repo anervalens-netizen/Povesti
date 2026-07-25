@@ -44,6 +44,17 @@ class MockTTSProvider(TTSProvider):
             wav_file.writeframes(bytes(frames * 2))
 
 
+OPENAI_VOICE_MAP = {
+    "narator": "marin",
+    "alexandru": "coral",
+    "tati": "cedar",
+    "masinuta-energica": "coral",
+    "masinuta-jucausa": "nova",
+    "masinuta-grava": "echo",
+    "masinuta-luminoasa": "shimmer",
+}
+
+
 class OpenAITTSProvider(TTSProvider):
     name = "openai"
 
@@ -65,7 +76,7 @@ class OpenAITTSProvider(TTSProvider):
         output.parent.mkdir(parents=True, exist_ok=True)
         with self.client.audio.speech.with_streaming_response.create(
             model=self.model,
-            voice=voice,
+            voice=OPENAI_VOICE_MAP.get(voice, voice),
             input=text,
             instructions=instructions,
             response_format="wav",
