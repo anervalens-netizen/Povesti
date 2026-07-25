@@ -46,13 +46,25 @@ class Scene(BaseModel):
 
     @model_validator(mode="after")
     def validate_routing(self):
-        if self.kind == "choice" and len(self.choices) < 2:
-            raise ValueError(f"Scena {self.id}: o alegere trebuie să aibă minimum două opțiuni")
+        if self.kind == "choice":
+            if len(self.choices) < 2:
+                raise ValueError(
+                    f"Scena {self.id}: o alegere trebuie să aibă minimum două opțiuni"
+                )
+            if self.next_scene:
+                raise ValueError(
+                    f"Scena {self.id}: o alegere nu poate avea și next_scene"
+                )
         if self.kind == "ending" and (self.next_scene or self.choices):
             raise ValueError(f"Scena {self.id}: finalul nu poate continua")
         if self.kind == "story" and self.choices:
             raise ValueError(f"Scena {self.id}: alegerile necesită kind=choice")
         return self
+
+    def outgoing_scene_ids(self) -> list[str]:
+        if self.kind == "choice":
+            return [choice.next_scene for choice in self.choices]
+        return [self.next_scene] if self.next_scene else []
 
 
 class Story(BaseModel):
@@ -82,17 +94,18 @@ class Story(BaseModel):
             raise ValueError("ID-uri de scene duplicate")
         if self.start_scene not in scene_ids:
             raise ValueError("start_scene nu există")
+
         role_ids = {character.id for character in self.characters} | {"narrator"}
         for scene in self.scenes:
             for segment in scene.segments:
                 if segment.role not in role_ids:
                     raise ValueError(f"Rol necunoscut {segment.role} în scena {scene.id}")
-            refs = ([scene.next_scene] if scene.next_scene else []) + [
-                choice.next_scene for choice in scene.choices
-            ]
-            for ref in refs:
+            for ref in scene.outgoing_scene_ids():
                 if ref not in scene_ids:
-                    raise ValueError(f"Scena {scene.id} referă scena inexistentă {ref}")
+                    raise ValueError(
+                        f"Scena {scene.id} referă scena inexistentă {ref}"
+                    )
+
         reachable: set[str] = set()
         stack = [self.start_scene]
         scene_map = {scene.id: scene for scene in self.scenes}
@@ -101,10 +114,8 @@ class Story(BaseModel):
             if scene_id in reachable:
                 continue
             reachable.add(scene_id)
-            current = scene_map[scene_id]
-            if current.next_scene:
-                stack.append(current.next_scene)
-            stack.extend(choice.next_scene for choice in current.choices)
+            stack.extend(scene_map[scene_id].outgoing_scene_ids())
+
         unreachable = set(scene_ids) - reachable
         if unreachable:
             raise ValueError(f"Scene inaccesibile: {', '.join(sorted(unreachable))}")
@@ -114,7 +125,9 @@ class Story(BaseModel):
 class GenerationRequest(BaseModel):
     title_idea: str = Field(min_length=3, max_length=200)
     lesson: str = Field(min_length=3, max_length=300)
-    favorite_elements: str = Field(default="mașinuțe, familie, aventură", max_length=500)
+    favorite_elements: str = Field(
+        default="mașinuțe, familie, aventură", max_length=500
+    )
     age: int = Field(default=3, ge=2, le=10)
     estimated_minutes: int = Field(default=7, ge=3, le=15)
     choices: int = Field(default=2, ge=1, le=4)
