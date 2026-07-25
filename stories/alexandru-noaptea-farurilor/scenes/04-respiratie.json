@@ -1,0 +1,28 @@
+{
+  "id": "respiratie",
+  "title": "Motorul liniștit",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "licurici",
+      "text": "Inspirăm încet ca și cum umplem rezervorul... apoi expirăm ca un motor care toarce.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Inspir... și expir: vruuum încet.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Inima lui Alexandru bătea acum mai liniștit.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "directie"
+}

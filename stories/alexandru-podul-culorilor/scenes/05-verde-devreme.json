@@ -1,0 +1,28 @@
+{
+  "id": "verde-devreme",
+  "title": "Verdele așteaptă",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Lumina verde clipi, dar nu rămase aprinsă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Verdele nu e greșit. Doar nu este încă rândul lui.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "curcubeu",
+      "text": "Foarte bine observat. Încercăm galben.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "galben"
+}

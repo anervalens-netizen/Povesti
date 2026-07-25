@@ -1,0 +1,33 @@
+{
+  "id": "start",
+  "title": "Podul stins",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Podul Culorilor era complet cenușiu. Curcubeu, mașinuța pictor, îl aștepta pe Alexandru.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "curcubeu",
+      "text": "Avem nevoie de roșu, galben, verde și albastru. Cu ce începem?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "rosu",
+      "label": "Roșu",
+      "next_scene": "rosu"
+    },
+    {
+      "id": "albastru",
+      "label": "Albastru",
+      "next_scene": "albastru"
+    }
+  ],
+  "next_scene": null
+}

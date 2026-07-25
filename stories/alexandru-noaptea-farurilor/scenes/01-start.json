@@ -1,0 +1,39 @@
+{
+  "id": "start",
+  "title": "Se sting luminile",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "În Marele Garaj, luminile se stinseră. Nu era pericol, dar totul părea diferit.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Mi-e puțin teamă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "licurici",
+      "text": "Este bine să spui asta. Aprindem farurile sau îl chemăm pe Tati prin stație?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "faruri",
+      "label": "Aprindem farurile",
+      "next_scene": "faruri"
+    },
+    {
+      "id": "tati",
+      "label": "Îl chemăm pe Tati",
+      "next_scene": "chemam"
+    }
+  ],
+  "next_scene": null
+}

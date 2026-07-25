@@ -1,0 +1,28 @@
+{
+  "id": "covorul",
+  "title": "O dimineață cu motoare",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Într-o dimineață, Alexandru stătea pe covor, înconjurat de mașinuțe roșii, albastre, verzi și galbene.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Vruuum! Vruuum! Astăzi toate mașinuțele merg la cursă!",
+      "delivery": "vesel",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "În camera alăturată, Tati își aranja colecția lui. Fiecare mașinuță stătea frumos pe raft.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "colectia"
+}

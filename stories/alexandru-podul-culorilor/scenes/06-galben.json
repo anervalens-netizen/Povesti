@@ -1,0 +1,28 @@
+{
+  "id": "galben",
+  "title": "Soarele de pe pod",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Galbenul se aprinse, apoi verdele, apoi albastrul.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Roșu, galben, verde, albastru!",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "curcubeu",
+      "text": "Ai avut răbdare și ai folosit indiciile.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "final"
+}

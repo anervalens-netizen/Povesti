@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "alexandru-cursa-fara-graba",
+  "episode": 7,
+  "title": "Alexandru și Cursa fără Grabă",
+  "subtitle": "Cum se liniștește un pilot când pista nu iese din prima.",
+  "summary": "O buclă se desprinde mereu, iar Alexandru învață să oprească motorul furiei, să respire și să încerce altfel.",
+  "age_min": 2,
+  "age_max": 6,
+  "estimated_minutes": 7,
+  "themes": [
+    "emoții",
+    "răbdare",
+    "rezolvare de probleme"
+  ],
+  "learning_goals": [
+    "să numească frustrarea",
+    "să facă pauză",
+    "să încerce din nou"
+  ],
+  "narrator_instructions": "Narează în limba română, cu pronunție naturală. Voce caldă, protectoare și jucăușă, pentru un copil de aproximativ 3 ani. Ritm lent, propoziții clare, pauze naturale. Diferențiază subtil personajele, fără teatralitate exagerată. Nu rosti indicațiile de interpretare.",
+  "characters": [
+    {
+      "id": "alexandru",
+      "name": "Alexandru",
+      "description": "curios, vesel și atent",
+      "voice": "marin",
+      "voice_instructions": "Voce de copil sugerată subtil: luminoasă, curioasă, fără caricatură."
+    },
+    {
+      "id": "tati",
+      "name": "Tati",
+      "description": "calm, afectuos și glumeț",
+      "voice": "cedar",
+      "voice_instructions": "Voce joasă, caldă, calmă și ușor amuzată."
+    },
+    {
+      "id": "zen",
+      "name": "Zen",
+      "voice": "sage",
+      "voice_instructions": "Voce calmă, lentă, cu umor discret."
+    }
+  ],
+  "start_scene": "start"
+}

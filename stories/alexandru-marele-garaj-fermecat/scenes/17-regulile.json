@@ -1,0 +1,28 @@
+{
+  "id": "regulile",
+  "title": "Cele trei reguli",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "fulger",
+      "text": "Spune cu mine cele trei reguli ale garajului.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Unu: ținem mașinuțele cu grijă. Doi: nu le aruncăm și nu forțăm roțile. Trei: după joacă, le punem la loc.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "fulger",
+      "text": "Perfect. Ai devenit Prietenul Mașinuțelor!",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "acasa"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "ambulanta",
+  "title": "Mașinuța de ajutor",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Alexandru lipi o cruce desenată pe hârtie și îi făcu un garaj lângă spitalul de jucărie.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Acum are o misiune importantă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "sortare"
+}

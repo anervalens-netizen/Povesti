@@ -1,0 +1,27 @@
+{
+  "id": "ordine",
+  "title": "Două indicii",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "curcubeu",
+      "text": "După roșu vine culoarea soarelui. Alegi galben sau verde?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "galben",
+      "label": "Galben",
+      "next_scene": "galben"
+    },
+    {
+      "id": "verde",
+      "label": "Verde",
+      "next_scene": "verde-devreme"
+    }
+  ],
+  "next_scene": null
+}

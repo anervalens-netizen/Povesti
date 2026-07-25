@@ -1,0 +1,28 @@
+{
+  "id": "iesire",
+  "title": "Acasă",
+  "kind": "ending",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "La ieșire îi aștepta Tati. În clipa aceea, luminile se aprinseră.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Curajul nu înseamnă să nu-ți fie teamă. Înseamnă să spui ce simți și să folosești ajutorul potrivit.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Și să merg doar până la următoarea lumină.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": null
+}

@@ -1,0 +1,28 @@
+{
+  "id": "haos",
+  "title": "Căutarea grăbită",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Alexandru ridică perne, cutii și haine, dar camera deveni și mai încurcată.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Acum nu mai găsesc nici mașinuța albastră.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Ne oprim, respirăm și împărțim camera pe zone.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "plan"
+}

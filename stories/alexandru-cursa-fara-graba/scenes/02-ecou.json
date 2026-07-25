@@ -1,0 +1,22 @@
+{
+  "id": "ecou",
+  "title": "Ecoul nu repară",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Strigătul făcu ecou, dar bucla rămase desfăcută.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Strigătul nu a reparat-o. Încerc frâna de calm.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "calm"
+}

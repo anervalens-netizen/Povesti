@@ -1,0 +1,22 @@
+{
+  "id": "explorator",
+  "title": "Mașinuța explorator",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Alexandru îi desenă o busolă și îi construi o rampă din carton refolosit.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Acum explorează drumuri noi.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "sortare"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "grija",
+  "title": "Calea pompierilor",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Drumul deveni liber. Autospeciala opri lângă garaj, iar Comandantul încheie exercițiul.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "comandant",
+      "text": "Ai păstrat distanța, ai chemat un adult și ai lăsat drumul liber.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "final"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "roata-potrivita",
+  "title": "Exact cât trebuie",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "alexandru",
+      "text": "Aceasta este la fel ca roata ei!",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "mesterica",
+      "text": "Corect. Piesele se așază, nu se forțează.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Au pus roata într-o cutie moale și au pornit mai departe.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "cinci-cutii"
+}

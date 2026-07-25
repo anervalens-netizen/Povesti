@@ -1,0 +1,28 @@
+{
+  "id": "podul-rosu",
+  "title": "Podul care se clătina",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Podul roșu se clătina puțin. Alexandru ținu Racheta Roșie aproape și păși încet.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Nu alergăm. Când avem ceva fragil, mergem cu grijă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "fulger",
+      "text": "Exact. Grija ne ajută să ajungem cu bine.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "muntele-rotilor"
+}

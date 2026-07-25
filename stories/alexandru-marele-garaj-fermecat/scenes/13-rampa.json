@@ -1,0 +1,27 @@
+{
+  "id": "rampa",
+  "title": "Rampa fără grabă",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "fulger",
+      "text": "Uleiul fermecat este dincolo de rampă. Putem să sărim foarte tare sau să urcăm încet. Tu ce alegi?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "sarit",
+      "label": "Să sărim tare",
+      "next_scene": "aproape-cazatura"
+    },
+    {
+      "id": "incet",
+      "label": "Să urcăm încet",
+      "next_scene": "urcare-sigura"
+    }
+  ],
+  "next_scene": null
+}

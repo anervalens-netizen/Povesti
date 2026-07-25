@@ -1,0 +1,28 @@
+{
+  "id": "tunelul-albastru",
+  "title": "Tunelul luminilor",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "În tunel, luminile se aprindeau una câte una. Alexandru auzea ecoul pașilor.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Țin mașinuța bine. În întuneric nu o aruncăm înainte.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "fulger",
+      "text": "Așa face un adevărat prieten al mașinuțelor.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "muntele-rotilor"
+}

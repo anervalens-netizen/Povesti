@@ -1,0 +1,38 @@
+{
+  "id": "muntele-rotilor",
+  "title": "Roata potrivită",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "La Muntele Roților erau trei roți: una uriașă, una foarte mică și una exact cât roata Rachetei Roșii.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "fulger",
+      "text": "Pe care o alegem?",
+      "delivery": "interactiv",
+      "pause_after_ms": 1300
+    }
+  ],
+  "choices": [
+    {
+      "id": "mare",
+      "label": "Roata uriașă",
+      "next_scene": "roata-mare"
+    },
+    {
+      "id": "potrivita",
+      "label": "Roata potrivită",
+      "next_scene": "roata-potrivita"
+    },
+    {
+      "id": "mica",
+      "label": "Roata mică",
+      "next_scene": "roata-mica"
+    }
+  ],
+  "next_scene": null
+}
