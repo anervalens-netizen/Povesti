@@ -1,5 +1,38 @@
-{% extends "base.html" %}{% block title %}{{ story.title }}{% endblock %}
-{% block content %}<article class="story-shell" data-story-id="{{ story.id }}"><div class="story-head"><p class="eyebrow">EPISODUL {{ story.episode }}</p><h1>{{ story.title }}</h1><p>{{ story.subtitle }}</p><div class="actions"><button id="start-story" class="button">Pornește povestea</button><button id="stop-story" class="button secondary">Oprește</button><button id="render-story" class="button secondary">Generează audio</button></div><p id="status" class="status">{% if has_audio %}Audio pregătit.{% else %}Audio încă negenerat; poți citi povestea pe ecran.{% endif %}</p></div>
-<section id="player" class="player"><div id="scene-title"></div><div id="spoken-text" class="spoken"></div><div id="choices" class="choices"></div></section>
-<details><summary>Vezi scenariul integral</summary>{% for scene in story.scenes %}<section class="scene"><h3>{{ scene.title }}</h3>{% for seg in scene.segments %}<p><strong>{{ seg.role }}:</strong> {{ seg.text }}</p>{% endfor %}</section>{% endfor %}</details></article>
-<script id="story-data" type="application/json">{{ story.model_dump_json()|safe }}</script>{% endblock %}
+{% extends "base.html" %}
+{% block title %}{{ story.title }}{% endblock %}
+{% block content %}
+<article class="story-shell" data-story-id="{{ story.id }}">
+  <div class="story-head">
+    <p class="eyebrow">EPISODUL {{ story.episode }}</p>
+    <h1>{{ story.title }}</h1>
+    <p>{{ story.subtitle }}</p>
+    <div class="actions">
+      <button id="start-story" class="button">Pornește povestea</button>
+      <button id="stop-story" class="button secondary">Oprește</button>
+      <button id="render-story" class="button secondary">Generează audio</button>
+    </div>
+    <p id="status" class="status">
+      {% if has_audio %}Audio pregătit.{% else %}Audio încă negenerat; poți citi povestea pe ecran.{% endif %}
+    </p>
+  </div>
+
+  <section id="player" class="player">
+    <div id="scene-title"></div>
+    <div id="spoken-text" class="spoken"></div>
+    <div id="choices" class="choices"></div>
+  </section>
+
+  <details>
+    <summary>Vezi scenariul integral</summary>
+    {% for scene in story.scenes %}
+    <section class="scene">
+      <h3>{{ scene.title }}</h3>
+      {% for seg in scene.segments %}
+      <p><strong>{{ seg.role }}:</strong> {{ seg.text }}</p>
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </details>
+</article>
+<script id="story-data" type="application/json">{{ story.model_dump(mode="json")|tojson }}</script>
+{% endblock %}

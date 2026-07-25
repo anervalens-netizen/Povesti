@@ -33,6 +33,8 @@ class AudioRenderer:
             "scenes": {},
         }
 
+        provider_identity = self.provider.cache_identity()
+
         for scene in story.scenes:
             items = []
             for index, segment in enumerate(scene.segments, start=1):
@@ -66,7 +68,7 @@ class AudioRenderer:
                 )
                 digest_source = "|".join(
                     (
-                        self.provider.name,
+                        provider_identity,
                         self.provider.voice_fingerprint(voice),
                         instructions,
                         tts_input,
