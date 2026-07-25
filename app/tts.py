@@ -156,17 +156,21 @@ class OpenAICompatibleTTSProvider(TTSProvider):
 
 
 class HiggsTTSProvider(TTSProvider):
-    """Native adapter for Higgs TTS 3 served through SGLang-Omni."""
+    """Native adapter for Higgs TTS 3 served through SGLang-Omni/vLLM-Omni."""
 
     name = "higgs"
     prefers_tts_text = True
-    response_format = "wav"
 
     def __init__(self, settings: Settings):
         self.base_url = settings.higgs_base_url.rstrip("/")
         self.api_key = settings.higgs_api_key
         self.model = settings.higgs_model
+        self.api_voice = settings.higgs_api_voice
+        self.response_format = settings.higgs_response_format
+        if self.response_format != "wav":
+            raise ValueError("Aplicația salvează segmente WAV; HIGGS_RESPONSE_FORMAT trebuie să fie wav")
         self.temperature = settings.higgs_temperature
+        self.top_p = settings.higgs_top_p
         self.top_k = settings.higgs_top_k
         self.max_new_tokens = settings.higgs_max_new_tokens
         self.seed = settings.higgs_seed
@@ -186,8 +190,10 @@ class HiggsTTSProvider(TTSProvider):
                 self.name,
                 self.base_url,
                 self.model,
+                f"api_voice={self.api_voice}",
                 self.response_format,
                 f"temperature={self.temperature}",
+                f"top_p={self.top_p}",
                 f"top_k={self.top_k}",
                 f"max_new_tokens={self.max_new_tokens}",
                 f"seed={self.seed}",
@@ -195,16 +201,12 @@ class HiggsTTSProvider(TTSProvider):
             )
         )
 
-    def synthesize(
-        self, *, text: str, voice: str, instructions: str, output: Path
-    ) -> None:
-        headers = {"Content-Type": "application/json"}
-        if self.api_key:
-            headers["Authorization"] = f"Bearer {self.api_key}"
-
+    def build_payload(self, *, text: str, profile_voice: str) -> dict[str, object]:
+        """Build the exact official /v1/audio/speech request without sending it."""
         payload: dict[str, object] = {
             "model": self.model,
-            "voice": voice,
+            # Local profile names select reference clips; the serving API voice stays default.
+            "voice": self.api_voice,
             "input": text,
             "response_format": self.response_format,
             "temperature": self.temperature,
@@ -212,12 +214,23 @@ class HiggsTTSProvider(TTSProvider):
             "max_new_tokens": self.max_new_tokens,
         }
         references = self.voices.reference_payload(
-            voice, required=self.require_references
+            profile_voice, required=self.require_references
         )
         if references:
             payload["references"] = references
+        if self.top_p is not None:
+            payload["top_p"] = self.top_p
         if self.seed is not None:
             payload["seed"] = self.seed
+        return payload
+
+    def synthesize(
+        self, *, text: str, voice: str, instructions: str, output: Path
+    ) -> None:
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+        payload = self.build_payload(text=text, profile_voice=voice)
 
         with httpx.Client(timeout=self.timeout) as client:
             response = client.post(
