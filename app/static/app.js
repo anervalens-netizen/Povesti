@@ -1,68 +1,158 @@
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const storyNode = document.getElementById("story-data");
-let stopped = false;
+let playbackRunId = 0;
+let cancelActiveAudio = null;
+let cancelPendingChoice = null;
+
+function isPlaybackActive(runId) {
+  return runId === playbackRunId;
+}
+
+function cancelPlayback() {
+  playbackRunId += 1;
+
+  if (cancelActiveAudio) {
+    const cancel = cancelActiveAudio;
+    cancelActiveAudio = null;
+    cancel();
+  }
+
+  if (cancelPendingChoice) {
+    const cancel = cancelPendingChoice;
+    cancelPendingChoice = null;
+    cancel();
+  }
+}
 
 async function fetchManifest(storyId) {
   const response = await fetch(`/api/stories/${storyId}/manifest`);
   return response.ok ? response.json() : null;
 }
 
-async function playAudio(url) {
+async function playAudio(url, runId) {
   return new Promise((resolve, reject) => {
+    if (!isPlaybackActive(runId)) {
+      resolve(false);
+      return;
+    }
+
     const audio = new Audio(url);
-    window.__storyAudio = audio;
-    audio.onended = resolve;
-    audio.onerror = reject;
-    audio.play().catch(reject);
+    let settled = false;
+
+    const cleanup = () => {
+      audio.onended = null;
+      audio.onerror = null;
+      if (cancelActiveAudio === cancel) cancelActiveAudio = null;
+    };
+
+    const finish = (played) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve(played);
+    };
+
+    const fail = (error) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(error);
+    };
+
+    const cancel = () => {
+      audio.pause();
+      finish(false);
+    };
+
+    cancelActiveAudio = cancel;
+    audio.onended = () => finish(true);
+    audio.onerror = () => fail(new Error(`Audio indisponibil: ${url}`));
+    audio.play().catch(fail);
   });
 }
 
-async function runScene(story, sceneId, manifest) {
-  if (stopped) return;
-  const scene = story.scenes.find((item) => item.id === sceneId);
-  if (!scene) return;
+function renderSceneTitle(title) {
+  const container = document.getElementById("scene-title");
+  const paragraph = document.createElement("p");
+  paragraph.className = "eyebrow";
+  paragraph.textContent = title;
+  container.replaceChildren(paragraph);
+}
 
-  document.getElementById("scene-title").innerHTML =
-    `<p class="eyebrow">${scene.title}</p>`;
+function waitForChoice(scene, choicesElement, runId) {
+  return new Promise((resolve) => {
+    if (!isPlaybackActive(runId)) {
+      resolve(null);
+      return;
+    }
+
+    let settled = false;
+    const finish = (nextScene) => {
+      if (settled) return;
+      settled = true;
+      if (cancelPendingChoice === cancel) cancelPendingChoice = null;
+      choicesElement.replaceChildren();
+      resolve(nextScene);
+    };
+    const cancel = () => finish(null);
+    cancelPendingChoice = cancel;
+
+    scene.choices.forEach((choice) => {
+      const button = document.createElement("button");
+      button.className = "button";
+      button.textContent = choice.label;
+      button.onclick = () => {
+        if (isPlaybackActive(runId)) finish(choice.next_scene);
+      };
+      choicesElement.appendChild(button);
+    });
+  });
+}
+
+async function runStory(story, manifest, runId) {
   const spoken = document.getElementById("spoken-text");
   const choices = document.getElementById("choices");
-  choices.innerHTML = "";
+  let sceneId = story.start_scene;
 
-  for (let index = 0; index < scene.segments.length; index += 1) {
-    if (stopped) return;
-    const segment = scene.segments[index];
-    spoken.textContent = segment.text;
-    const audioSegment = manifest?.scenes?.[scene.id]?.[index];
-    if (audioSegment) {
-      try {
-        await playAudio(audioSegment.audio_url);
-      } catch (error) {
-        console.warn("Audio segment unavailable", error);
+  while (sceneId && isPlaybackActive(runId)) {
+    const scene = story.scenes.find((item) => item.id === sceneId);
+    if (!scene) throw new Error(`Scena nu există: ${sceneId}`);
+
+    renderSceneTitle(scene.title);
+    choices.replaceChildren();
+
+    for (let index = 0; index < scene.segments.length; index += 1) {
+      if (!isPlaybackActive(runId)) return false;
+
+      const segment = scene.segments[index];
+      spoken.textContent = segment.text;
+      const audioSegment = manifest?.scenes?.[scene.id]?.[index];
+      if (audioSegment) {
+        try {
+          await playAudio(audioSegment.audio_url, runId);
+        } catch (error) {
+          if (isPlaybackActive(runId)) {
+            console.warn("Audio segment unavailable", error);
+          }
+        }
       }
+
+      await sleep(segment.pause_after_ms ?? 500);
+      if (!isPlaybackActive(runId)) return false;
     }
-    await sleep(segment.pause_after_ms || 500);
+
+    if (scene.choices?.length) {
+      sceneId = await waitForChoice(scene, choices, runId);
+    } else {
+      sceneId = scene.next_scene || null;
+    }
   }
 
-  if (stopped) return;
-  if (scene.choices?.length) {
-    const nextScene = await new Promise((resolve) => {
-      scene.choices.forEach((choice) => {
-        const button = document.createElement("button");
-        button.className = "button";
-        button.textContent = choice.label;
-        button.onclick = () => {
-          choices.innerHTML = "";
-          resolve(choice.next_scene);
-        };
-        choices.appendChild(button);
-      });
-    });
-    await runScene(story, nextScene, manifest);
-  } else if (scene.next_scene) {
-    await runScene(story, scene.next_scene, manifest);
-  } else {
+  if (isPlaybackActive(runId)) {
     spoken.textContent += "\n\nSfârșit.";
+    return true;
   }
+  return false;
 }
 
 async function waitForRender(storyId, statusElement) {
@@ -90,18 +180,39 @@ async function waitForRender(storyId, statusElement) {
 if (storyNode) {
   const story = JSON.parse(storyNode.textContent);
   const status = document.getElementById("status");
+  const startButton = document.getElementById("start-story");
+  const stopButton = document.getElementById("stop-story");
+  const choices = document.getElementById("choices");
 
-  document.getElementById("start-story").onclick = async () => {
-    stopped = false;
+  startButton.onclick = async () => {
+    if (startButton.disabled) return;
+
+    cancelPlayback();
+    const runId = playbackRunId;
+    startButton.disabled = true;
     status.textContent = "Povestea rulează…";
-    const manifest = await fetchManifest(story.id);
-    await runScene(story, story.start_scene, manifest);
-    status.textContent = stopped ? "Oprit." : "Poveste încheiată.";
+
+    try {
+      const manifest = await fetchManifest(story.id);
+      if (!isPlaybackActive(runId)) return;
+      const completed = await runStory(story, manifest, runId);
+      if (isPlaybackActive(runId)) {
+        status.textContent = completed ? "Poveste încheiată." : "Oprit.";
+      }
+    } catch (error) {
+      if (isPlaybackActive(runId)) {
+        console.error(error);
+        status.textContent = `Eroare la redare: ${error.message || error}`;
+      }
+    } finally {
+      if (isPlaybackActive(runId)) startButton.disabled = false;
+    }
   };
 
-  document.getElementById("stop-story").onclick = () => {
-    stopped = true;
-    if (window.__storyAudio) window.__storyAudio.pause();
+  stopButton.onclick = () => {
+    cancelPlayback();
+    choices.replaceChildren();
+    startButton.disabled = false;
     status.textContent = "Oprit.";
   };
 
