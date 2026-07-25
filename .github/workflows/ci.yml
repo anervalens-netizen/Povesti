@@ -18,3 +18,4 @@ jobs:
       - run: python scripts/validate_stories.py
       - run: pytest -q
       - run: node --check app/static/app.js
+      - run: node tests/test_player.js
