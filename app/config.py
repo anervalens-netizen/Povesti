@@ -26,6 +26,11 @@ def _optional_int(name: str) -> int | None:
     return int(value) if value else None
 
 
+def _optional_float(name: str) -> float | None:
+    value = os.getenv(name, "").strip()
+    return float(value) if value else None
+
+
 @dataclass(frozen=True)
 class Settings:
     app_name: str = os.getenv("APP_NAME", "Povești pentru Alexandru")
@@ -49,7 +54,10 @@ class Settings:
     higgs_base_url: str = os.getenv("HIGGS_BASE_URL", "http://127.0.0.1:8000/v1")
     higgs_api_key: str = os.getenv("HIGGS_API_KEY", "")
     higgs_model: str = os.getenv("HIGGS_MODEL", "bosonai/higgs-tts-3-4b")
+    higgs_api_voice: str = os.getenv("HIGGS_API_VOICE", "default")
+    higgs_response_format: str = os.getenv("HIGGS_RESPONSE_FORMAT", "wav").lower()
     higgs_temperature: float = float(os.getenv("HIGGS_TEMPERATURE", "0.8"))
+    higgs_top_p: float | None = _optional_float("HIGGS_TOP_P")
     higgs_top_k: int = int(os.getenv("HIGGS_TOP_K", "50"))
     higgs_max_new_tokens: int = int(os.getenv("HIGGS_MAX_NEW_TOKENS", "2048"))
     higgs_seed: int | None = _optional_int("HIGGS_SEED")
