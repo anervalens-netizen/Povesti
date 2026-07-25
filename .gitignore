@@ -7,4 +7,11 @@ media/*
 !media/.gitkeep
 data/*
 !data/.gitkeep
+voices/*.wav
+voices/*.mp3
+voices/*.flac
+voices/*.m4a
+!voices/.gitkeep
+!voices/README.md
+!voices/voices.json
 .DS_Store

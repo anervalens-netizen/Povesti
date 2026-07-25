@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "narator": {
+      "reference_audio": "narator.wav",
+      "reference_text": "Bun venit în lumea poveștilor. Vom porni încet, cu răbdare, curiozitate și multă grijă.",
+      "prefix": "<|prosody:speed_slow|><|prosody:expressive_high|>",
+      "description": "Voce caldă de narator, clară și liniștitoare."
+    },
+    "alexandru": {
+      "reference_audio": "alexandru.wav",
+      "reference_text": "Bună! Eu sunt Alexandru. Îmi plac mașinuțele, cursele și aventurile în care descoperim lucruri noi.",
+      "prefix": "<|prosody:pitch_high|><|prosody:expressive_high|>",
+      "description": "Voce luminoasă pentru Alexandru. Folosește o voce sintetică sau o înregistrare realizată cu acord."
+    },
+    "tati": {
+      "reference_audio": "tati.wav",
+      "reference_text": "Sunt aici și te ajut. Ne oprim, ne uităm cu atenție și găsim împreună soluția potrivită.",
+      "prefix": "<|prosody:pitch_low|><|prosody:speed_slow|>",
+      "description": "Voce joasă, calmă, afectuoasă și ușor glumeață."
+    },
+    "masinuta-energica": {
+      "reference_audio": "masinuta-energica.wav",
+      "reference_text": "Motoarele sunt pregătite, pista este liberă și aventura poate începe chiar acum!",
+      "prefix": "<|prosody:pitch_high|><|prosody:expressive_high|>",
+      "description": "Voce energică pentru mașinuțe rapide și entuziaste."
+    },
+    "masinuta-jucausa": {
+      "reference_audio": "masinuta-jucausa.wav",
+      "reference_text": "Ce idee grozavă! Putem încerca, putem râde și putem învăța ceva nou împreună.",
+      "prefix": "<|prosody:pitch_high|><|prosody:expressive_high|>",
+      "description": "Voce mică, prietenoasă și jucăușă."
+    },
+    "masinuta-grava": {
+      "reference_audio": "masinuta-grava.wav",
+      "reference_text": "Un plan bun începe cu o oprire scurtă, o verificare atentă și instrumentul potrivit.",
+      "prefix": "<|prosody:pitch_low|><|prosody:speed_slow|>",
+      "description": "Voce robustă pentru mecanici, lideri și personaje protectoare."
+    },
+    "masinuta-luminoasa": {
+      "reference_audio": "masinuta-luminoasa.wav",
+      "reference_text": "Lumina ne arată drumul, iar răbdarea ne ajută să alegem pasul potrivit.",
+      "prefix": "<|prosody:expressive_high|>",
+      "description": "Voce clară, luminoasă și ușor magică."
+    }
+  }
+}

@@ -27,14 +27,33 @@ class AudioRenderer:
         roles = {character.id: character for character in story.characters}
         total = sum(len(scene.segments) for scene in story.scenes)
         completed = 0
-        manifest = {"story_id": story.id, "provider": self.provider.name, "scenes": {}}
+        manifest = {
+            "story_id": story.id,
+            "provider": self.provider.name,
+            "scenes": {},
+        }
 
         for scene in story.scenes:
             items = []
             for index, segment in enumerate(scene.segments, start=1):
                 character = roles.get(segment.role)
-                voice = character.voice if character else "marin"
-                role_instructions = character.voice_instructions if character else ""
+                if segment.role == "narrator":
+                    voice = story.narrator_voice
+                    role_instructions = story.narrator_instructions
+                else:
+                    voice = character.voice if character else "masinuta-jucausa"
+                    role_instructions = character.voice_instructions if character else ""
+
+                source_text = (
+                    segment.tts_text
+                    if self.provider.prefers_tts_text and segment.tts_text
+                    else segment.text
+                )
+                tts_input = self.provider.prepare_text(
+                    text=source_text,
+                    voice=voice,
+                    delivery=segment.delivery,
+                )
                 instructions = "\n".join(
                     value
                     for value in (
@@ -45,13 +64,20 @@ class AudioRenderer:
                     )
                     if value
                 )
-                digest_source = f"{self.provider.name}|{voice}|{instructions}|{segment.text}"
+                digest_source = "|".join(
+                    (
+                        self.provider.name,
+                        self.provider.voice_fingerprint(voice),
+                        instructions,
+                        tts_input,
+                    )
+                )
                 digest = hashlib.sha256(digest_source.encode("utf-8")).hexdigest()[:16]
                 relative_path = Path(story.id) / scene.id / f"{index:02d}-{digest}.wav"
                 target = self.media_dir / relative_path
                 if force or not target.exists():
                     self.provider.synthesize(
-                        text=segment.text,
+                        text=tts_input,
                         voice=voice,
                         instructions=instructions,
                         output=target,
@@ -60,6 +86,7 @@ class AudioRenderer:
                     {
                         "role": segment.role,
                         "text": segment.text,
+                        "tts_input": tts_input,
                         "audio_url": f"/media/{relative_path.as_posix()}",
                         "pause_after_ms": segment.pause_after_ms,
                         "voice": voice,

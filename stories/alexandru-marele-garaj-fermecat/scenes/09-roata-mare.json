@@ -1,16 +1,1 @@
-{
-  "id": "roata-mare",
-  "title": "Prea mare",
-  "kind": "story",
-  "direction": "",
-  "segments": [
-    {
-      "role": "mesterica",
-      "text": "Aceasta este prea mare. Nu forțăm o piesă care nu se potrivește. Mai privim o dată, cu răbdare.",
-      "delivery": "",
-      "pause_after_ms": 650
-    }
-  ],
-  "choices": [],
-  "next_scene": "muntele-rotilor"
-}
+{"id":"roata-mare","title":"Roata prea mare","kind":"story","direction":"","segments":[{"role":"alexandru","text":"Aceasta pare puternică!","tts_text":"<|emotion:enthusiasm|>Aceasta pare puternică!","delivery":"","pause_after_ms":700},{"role":"fulger","text":"Este puternică, dar prea mare. Ar atinge caroseria și Racheta nu ar putea vira.","tts_text":"<|emotion:contemplation|><|prosody:speed_slow|>Este puternică, dar prea mare. Ar atinge caroseria și Racheta nu ar putea vira.","delivery":"","pause_after_ms":1000},{"role":"racheta-rosie","text":"Mai bine o lăsăm pentru un camion.","tts_text":"<|emotion:amusement|>Mai bine o lăsăm pentru un camion.","delivery":"","pause_after_ms":800},{"role":"narrator","text":"Au pus roata mare înapoi fără s-o arunce.","tts_text":"<|emotion:contentment|>Au pus roata mare înapoi fără s-o arunce.","delivery":"","pause_after_ms":900}],"choices":[],"next_scene":"roata-potrivita"}

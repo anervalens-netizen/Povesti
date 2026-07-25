@@ -23,12 +23,18 @@ class StoryCatalog:
         raise ValueError(f"Format nesuportat: {path}")
 
     def _read_directory(self, path: Path) -> dict:
-        metadata_path = path / "story.json"
-        if not metadata_path.exists():
-            raise ValueError(f"Lipsește {metadata_path}")
-        data = self._read(metadata_path)
+        story_path = path / "story.json"
+        if not story_path.exists():
+            raise ValueError(f"Lipsește {story_path}")
+        data = self._read(story_path)
+        # Schema v2 stores the complete episode in one reviewable file.
+        if data.get("scenes"):
+            return data
+        # Backward compatibility with the initial split-scene format.
         scene_dir = path / "scenes"
-        scene_paths = sorted(scene_dir.glob("*.json")) + sorted(scene_dir.glob("*.yaml"))
+        scene_paths = sorted(scene_dir.glob("*.json")) + sorted(
+            scene_dir.glob("*.yaml")
+        )
         if not scene_paths:
             raise ValueError(f"Povestea {path.name} nu are scene")
         data["scenes"] = [self._read(scene_path) for scene_path in scene_paths]
@@ -55,16 +61,10 @@ class StoryCatalog:
             raise FileExistsError(story_path)
         if story_path.exists():
             shutil.rmtree(story_path)
-        scene_dir = story_path / "scenes"
-        scene_dir.mkdir(parents=True)
-        metadata = story.model_dump(mode="json", exclude={"scenes"})
-        (story_path / "story.json").write_text(
-            json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        story_path.mkdir(parents=True)
+        target = story_path / "story.json"
+        target.write_text(
+            json.dumps(story.model_dump(mode="json"), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
         )
-        for index, scene in enumerate(story.scenes, start=1):
-            scene_path = scene_dir / f"{index:02d}-{scene.id}.json"
-            scene_path.write_text(
-                json.dumps(scene.model_dump(mode="json"), ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
         return story_path

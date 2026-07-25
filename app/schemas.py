@@ -1,19 +1,32 @@
 from __future__ import annotations
+
 from typing import Literal
-from pydantic import BaseModel, Field, model_validator
+
+from pydantic import BaseModel, Field, field_validator, model_validator
+
+from .higgs import validate_higgs_text
+
 
 class Character(BaseModel):
     id: str = Field(pattern=r"^[a-z0-9_-]+$")
     name: str
     description: str = ""
-    voice: str = "marin"
+    voice: str = "masinuta-jucausa"
     voice_instructions: str = ""
+
 
 class Segment(BaseModel):
     role: str
     text: str = Field(min_length=1, max_length=4096)
+    tts_text: str | None = Field(default=None, min_length=1, max_length=4096)
     delivery: str = ""
     pause_after_ms: int = Field(default=650, ge=0, le=10000)
+
+    @field_validator("tts_text")
+    @classmethod
+    def validate_tts_text(cls, value: str | None) -> str | None:
+        return validate_higgs_text(value) if value else value
+
 
 class Choice(BaseModel):
     id: str = Field(pattern=r"^[a-z0-9_-]+$")
@@ -21,13 +34,14 @@ class Choice(BaseModel):
     prompt: str = ""
     next_scene: str
 
+
 class Scene(BaseModel):
     id: str = Field(pattern=r"^[a-z0-9_-]+$")
     title: str
     kind: Literal["story", "choice", "ending"] = "story"
     direction: str = ""
     segments: list[Segment] = Field(min_length=1)
-    choices: list[Choice] = []
+    choices: list[Choice] = Field(default_factory=list)
     next_scene: str | None = None
 
     @model_validator(mode="after")
@@ -40,8 +54,9 @@ class Scene(BaseModel):
             raise ValueError(f"Scena {self.id}: alegerile necesită kind=choice")
         return self
 
+
 class Story(BaseModel):
-    schema_version: int = 1
+    schema_version: int = 2
     id: str = Field(pattern=r"^[a-z0-9_-]+$")
     episode: int = Field(ge=1)
     title: str
@@ -50,9 +65,10 @@ class Story(BaseModel):
     age_min: int = Field(default=2, ge=1, le=12)
     age_max: int = Field(default=6, ge=1, le=14)
     estimated_minutes: int = Field(default=7, ge=1, le=60)
-    themes: list[str] = []
-    learning_goals: list[str] = []
-    narrator_instructions: str
+    themes: list[str] = Field(default_factory=list)
+    learning_goals: list[str] = Field(default_factory=list)
+    narrator_instructions: str = ""
+    narrator_voice: str = "narator"
     characters: list[Character]
     start_scene: str
     scenes: list[Scene] = Field(min_length=1)
@@ -61,36 +77,39 @@ class Story(BaseModel):
     def validate_graph(self):
         if self.age_min > self.age_max:
             raise ValueError("age_min nu poate fi mai mare decât age_max")
-        scene_ids = [s.id for s in self.scenes]
+        scene_ids = [scene.id for scene in self.scenes]
         if len(scene_ids) != len(set(scene_ids)):
             raise ValueError("ID-uri de scene duplicate")
         if self.start_scene not in scene_ids:
             raise ValueError("start_scene nu există")
-        role_ids = {c.id for c in self.characters} | {"narrator"}
+        role_ids = {character.id for character in self.characters} | {"narrator"}
         for scene in self.scenes:
-            for seg in scene.segments:
-                if seg.role not in role_ids:
-                    raise ValueError(f"Rol necunoscut {seg.role} în scena {scene.id}")
-            refs = ([scene.next_scene] if scene.next_scene else []) + [c.next_scene for c in scene.choices]
+            for segment in scene.segments:
+                if segment.role not in role_ids:
+                    raise ValueError(f"Rol necunoscut {segment.role} în scena {scene.id}")
+            refs = ([scene.next_scene] if scene.next_scene else []) + [
+                choice.next_scene for choice in scene.choices
+            ]
             for ref in refs:
                 if ref not in scene_ids:
                     raise ValueError(f"Scena {scene.id} referă scena inexistentă {ref}")
-        reachable = set()
+        reachable: set[str] = set()
         stack = [self.start_scene]
-        scene_map = {s.id: s for s in self.scenes}
+        scene_map = {scene.id: scene for scene in self.scenes}
         while stack:
-            sid = stack.pop()
-            if sid in reachable:
+            scene_id = stack.pop()
+            if scene_id in reachable:
                 continue
-            reachable.add(sid)
-            scene = scene_map[sid]
-            if scene.next_scene:
-                stack.append(scene.next_scene)
-            stack.extend(c.next_scene for c in scene.choices)
+            reachable.add(scene_id)
+            current = scene_map[scene_id]
+            if current.next_scene:
+                stack.append(current.next_scene)
+            stack.extend(choice.next_scene for choice in current.choices)
         unreachable = set(scene_ids) - reachable
         if unreachable:
             raise ValueError(f"Scene inaccesibile: {', '.join(sorted(unreachable))}")
         return self
+
 
 class GenerationRequest(BaseModel):
     title_idea: str = Field(min_length=3, max_length=200)

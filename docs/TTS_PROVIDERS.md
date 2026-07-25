@@ -1,15 +1,27 @@
 # Furnizori TTS
 
-## Mock
-`TTS_PROVIDER=mock` produce fișiere WAV silențioase. Verifică fluxul fără cost.
+## `higgs` — recomandat
 
-## OpenAI
-Setează `TTS_PROVIDER=openai` și `OPENAI_API_KEY`. Model implicit: `gpt-4o-mini-tts`. Fiecare segment este trimis separat, cu vocea și instrucțiunile rolului. Cheia rămâne doar pe server.
+Adaptor nativ pentru Higgs TTS 3 prin SGLang-Omni sau vLLM-Omni. Folosește `tts_text`, tagurile oficiale și mostre vocale multiple.
 
-## Local / OpenAI-compatible
-Setează `TTS_PROVIDER=openai-compatible` și `LOCAL_TTS_BASE_URL`, de exemplu un endpoint de pe PC-ul de gaming accesibil prin Tailscale. Endpointul trebuie să accepte `POST /audio/speech` și să returneze WAV.
+```env
+TTS_PROVIDER=higgs
+HIGGS_BASE_URL=http://IP-TAILSCALE-PC:8000/v1
+HIGGS_REQUIRE_REFERENCES=true
+```
 
-Pentru XTTS, Piper, Kokoro sau alt motor fără API compatibil, recomandarea este un adaptor mic pe PC-ul de gaming care expune acest contract. Aplicația nu depinde astfel de un motor anume.
+## `mock`
 
-## Mai multe voci
-Fiecare personaj are `voice`. Motorul audio generează separat fiecare segment, deci poate folosi voci complet diferite. Schimbarea furnizorului nu modifică poveștile.
+Generează WAV silențios pentru testarea playerului fără GPU sau cost.
+
+## `openai`
+
+Folosește `gpt-4o-mini-tts`. Citește câmpul curat `text`; instrucțiunile sunt compuse din metadatele scenei și personajului.
+
+## `openai-compatible`
+
+Adaptor generic pentru un motor care implementează `/v1/audio/speech`. Nu presupune suport pentru tagurile Higgs.
+
+## Cache
+
+Cheia cache include furnizorul, textul efectiv trimis, instrucțiunile și amprenta mostrei vocale. Schimbarea unei înregistrări din `voices/` regenerează automat numai replicile rolurilor afectate.
