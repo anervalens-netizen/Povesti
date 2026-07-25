@@ -1,0 +1,9 @@
+<!doctype html><html lang="ro"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171a24"><title>{% block title %}Povești{% endblock %}</title>
+<link rel="manifest" href="/static/manifest.json"><link rel="stylesheet" href="/static/styles.css">
+</head><body>
+<header><a class="brand" href="/">Povești pentru Alexandru</a><nav><a href="/">Bibliotecă</a><a href="/generate">Poveste nouă</a></nav></header>
+<main>{% block content %}{% endblock %}</main>
+<footer>Vocea poate fi generată de AI. Poveștile sunt verificate de un adult înainte de redare.</footer>
+<script src="/static/app.js" defer></script>{% block scripts %}{% endblock %}</body></html>

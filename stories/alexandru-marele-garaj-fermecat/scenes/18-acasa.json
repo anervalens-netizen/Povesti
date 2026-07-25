@@ -1,0 +1,76 @@
+{
+  "id": "acasa",
+  "title": "Înapoi pe covor",
+  "kind": "ending",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Lumina albastră apăru din nou, iar Alexandru se trezi în camera lui. Racheta Roșie era întreagă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Ei bine... mașinuța mea a supraviețuit aventurii?",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Da. Și o să am grijă de ea.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Atunci poate îți mai împrumut una.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Două?",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Una.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Toate?",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Știam eu că vrei să-mi furi colecția!",
+      "delivery": "râzând",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Alexandru râse, apoi așeză toate mașinuțele una lângă alta.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Noapte bună, mașinuțelor.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "racheta-rosie",
+      "text": "Noapte bună, Alexandru, Prietenul Mașinuțelor.",
+      "delivery": "șoptit",
+      "pause_after_ms": 1200
+    }
+  ],
+  "choices": [],
+  "next_scene": null
+}

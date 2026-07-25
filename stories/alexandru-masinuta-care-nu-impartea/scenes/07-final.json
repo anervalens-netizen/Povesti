@@ -1,0 +1,28 @@
+{
+  "id": "final",
+  "title": "Cursa tuturor",
+  "kind": "ending",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Au pornit câte o mașinuță pe fiecare traseu și au aplaudat ambele sosiri.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Acum este rândul tău, apoi rândul meu.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "turbo",
+      "text": "Și după aceea, încă un rând împreună!",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": null
+}

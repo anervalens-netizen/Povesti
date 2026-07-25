@@ -1,0 +1,34 @@
+{
+  "id": "cinci-cutii",
+  "title": "Peștera Uneltelor",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "În Peștera Uneltelor se aflau cinci cutii. Hai să le numărăm împreună.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Unu... doi... trei... patru... cinci!",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "În cutia a cincea strălucea piulița de argint.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Am găsit-o! O pun încet în buzunar, ca să nu o pierd.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "rampa"
+}

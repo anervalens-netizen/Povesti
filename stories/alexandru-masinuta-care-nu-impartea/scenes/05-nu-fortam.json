@@ -1,0 +1,22 @@
+{
+  "id": "nu-fortam",
+  "title": "Fără forțare",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "alexandru",
+      "text": "Dacă împingem tare, o putem strica. Mai bine ridicăm tunelul.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "turbo",
+      "text": "Bine. Ajut și eu.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "cooperare"
+}

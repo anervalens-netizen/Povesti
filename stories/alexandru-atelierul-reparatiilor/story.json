@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "alexandru-atelierul-reparatiilor",
+  "episode": 8,
+  "title": "Alexandru și Atelierul Reparațiilor",
+  "subtitle": "O poveste despre reparat, refolosit și protejat planeta.",
+  "summary": "Mașinuțele vechi sunt trimise prea repede la grămada de aruncat, iar Alexandru deschide un atelier care le oferă o nouă misiune.",
+  "age_min": 2,
+  "age_max": 6,
+  "estimated_minutes": 7,
+  "themes": [
+    "reparare",
+    "reciclare",
+    "creativitate"
+  ],
+  "learning_goals": [
+    "să repare înainte de a arunca",
+    "să sorteze materiale"
+  ],
+  "narrator_instructions": "Narează în limba română, cu pronunție naturală. Voce caldă, protectoare și jucăușă, pentru un copil de aproximativ 3 ani. Ritm lent, propoziții clare, pauze naturale. Diferențiază subtil personajele, fără teatralitate exagerată. Nu rosti indicațiile de interpretare.",
+  "characters": [
+    {
+      "id": "alexandru",
+      "name": "Alexandru",
+      "description": "curios, vesel și atent",
+      "voice": "marin",
+      "voice_instructions": "Voce de copil sugerată subtil: luminoasă, curioasă, fără caricatură."
+    },
+    {
+      "id": "tati",
+      "name": "Tati",
+      "description": "calm, afectuos și glumeț",
+      "voice": "cedar",
+      "voice_instructions": "Voce joasă, caldă, calmă și ușor amuzată."
+    },
+    {
+      "id": "eco",
+      "name": "Eco",
+      "voice": "fable",
+      "voice_instructions": "Voce curioasă, optimistă și inventivă."
+    }
+  ],
+  "start_scene": "start"
+}

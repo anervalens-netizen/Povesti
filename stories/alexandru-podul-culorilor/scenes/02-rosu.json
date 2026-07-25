@@ -1,0 +1,22 @@
+{
+  "id": "rosu",
+  "title": "Lumina roșie",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "alexandru",
+      "text": "Roșu ca Racheta Roșie!",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Prima lampă se aprinse. Mai lipseau trei.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "ordine"
+}

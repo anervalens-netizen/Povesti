@@ -1,0 +1,39 @@
+{
+  "id": "start",
+  "title": "Toată pista pentru Turbo",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "turbo",
+      "text": "Pista este numai a mea! Și bucla, și rampa, și toate mașinuțele!",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Dar și ceilalți vor să se joace.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Putem împărți timpul sau putem construi două trasee. Ce încercăm?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "timp",
+      "label": "Pe rând",
+      "next_scene": "pe-rand"
+    },
+    {
+      "id": "trasee",
+      "label": "Două trasee",
+      "next_scene": "doua-trasee"
+    }
+  ],
+  "next_scene": null
+}

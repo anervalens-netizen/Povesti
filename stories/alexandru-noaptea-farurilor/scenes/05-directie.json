@@ -1,0 +1,39 @@
+{
+  "id": "directie",
+  "title": "Stelele de pe podea",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Pe podea erau stele reflectorizante. Unele mergeau spre atelier, altele spre ieșire.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "licurici",
+      "text": "Urmăm stelele albastre sau galbene?",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Cele albastre arată o ușă. Pe ele!",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "albastre",
+      "label": "Stelele albastre",
+      "next_scene": "iesire"
+    },
+    {
+      "id": "galbene",
+      "label": "Stelele galbene",
+      "next_scene": "atelier"
+    }
+  ],
+  "next_scene": null
+}

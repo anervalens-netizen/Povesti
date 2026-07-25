@@ -1,0 +1,39 @@
+{
+  "id": "problema",
+  "title": "Mașinuța blocată",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "O mașinuță mică rămase blocată în tunel.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "turbo",
+      "text": "Eu pot să o împing foarte tare!",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Sau putem ridica tunelul împreună. Ce este mai sigur?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "impinge",
+      "label": "O împingem",
+      "next_scene": "nu-fortam"
+    },
+    {
+      "id": "ridicam",
+      "label": "Ridicăm tunelul",
+      "next_scene": "cooperare"
+    }
+  ],
+  "next_scene": null
+}

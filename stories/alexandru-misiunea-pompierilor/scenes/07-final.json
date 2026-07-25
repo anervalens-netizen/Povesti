@@ -1,0 +1,28 @@
+{
+  "id": "final",
+  "title": "Insigna de siguranță",
+  "kind": "ending",
+  "direction": "",
+  "segments": [
+    {
+      "role": "tati",
+      "text": "Când vedem foc, fum, cabluri sau prize stricate, nu atingem. Spunem imediat unui adult.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Eu pot ajuta cel mai bine rămânând în siguranță.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Comandantul îi dărui o insignă roșie, iar toate mașinuțele claxonaseră încet în semn de felicitare.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": null
+}

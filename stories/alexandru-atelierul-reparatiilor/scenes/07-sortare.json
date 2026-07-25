@@ -1,0 +1,33 @@
+{
+  "id": "sortare",
+  "title": "Unde merge cartonul?",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "tati",
+      "text": "Resturile de carton merg la hârtie și carton. Capacele de plastic merg separat. Jucăriile cu baterii nu se aruncă la gunoiul obișnuit.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "eco",
+      "text": "Ce punem în cutia albastră?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "carton",
+      "label": "Cartonul",
+      "next_scene": "corect"
+    },
+    {
+      "id": "baterii",
+      "label": "Bateriile",
+      "next_scene": "baterii"
+    }
+  ],
+  "next_scene": null
+}

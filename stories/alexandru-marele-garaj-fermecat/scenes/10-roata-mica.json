@@ -1,0 +1,16 @@
+{
+  "id": "roata-mica",
+  "title": "Prea mică",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "mesterica",
+      "text": "Aceasta este prea mică. Nu-i nimic că am încercat. Greșelile ne ajută să observăm mai bine.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "muntele-rotilor"
+}

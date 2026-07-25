@@ -1,0 +1,22 @@
+{
+  "id": "calm",
+  "title": "Frâna de calm",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "zen",
+      "text": "Punem mâinile jos. Inspirăm. Expirăm. Spunem: sunt supărat, dar pot cere ajutor.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Sunt supărat. Tati, mă ajuți să văd ce nu merge?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "inspectie"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "urcare-sigura",
+  "title": "Urcarea sigură",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Au urcat încet, roată cu roată. La capătul rampei au găsit sticluța cu ulei auriu.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Am toate cele trei lucruri. Hai la atelier!",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "reparatia"
+}

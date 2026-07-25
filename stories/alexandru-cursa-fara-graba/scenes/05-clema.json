@@ -1,0 +1,22 @@
+{
+  "id": "clema",
+  "title": "Clema corectă",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Întoarsă, clema se fixa mai bine.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Am observat ceva nou pentru că m-am liniștit.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "final"
+}

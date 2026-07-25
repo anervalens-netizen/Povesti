@@ -1,0 +1,34 @@
+{
+  "id": "reparatia",
+  "title": "Atelierul lui Meșterică",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "mesterica",
+      "text": "Punem roata potrivită, strângem piulița fără să forțăm și adăugăm o singură picătură de ulei.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Racheta Roșie porni. Roțile se învârteau drept și lin.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "racheta-rosie",
+      "text": "Vruuum! Sunt din nou pregătită! Mulțumesc, Alexandru.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "De acum te țin cu grijă. Iar dacă ceva se strică, chem un adult.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "regulile"
+}

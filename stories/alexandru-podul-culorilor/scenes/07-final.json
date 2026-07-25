@@ -1,0 +1,28 @@
+{
+  "id": "final",
+  "title": "Traversarea",
+  "kind": "ending",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Podul străluci ca un curcubeu, iar mașinuțele îl traversară încet.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Când nu iese din prima, mă uit, mă gândesc și încerc din nou.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "La capătul podului, toate farurile clipiră în culorile învățate.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": null
+}

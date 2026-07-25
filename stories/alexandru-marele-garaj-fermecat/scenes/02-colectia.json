@@ -1,0 +1,40 @@
+{
+  "id": "colectia",
+  "title": "Colecția lui Tati",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "alexandru",
+      "text": "Tatiii... ce faci?",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Îmi aranjez colecția. Și cred că un mic pilot vrea să-mi fure toate mașinuțele.",
+      "delivery": "glumeț",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Daaa! Pe toate!",
+      "delivery": "râzând",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "tati",
+      "text": "Aha, te-am prins. Poți lua Racheta Roșie, dar o ținem cu grijă. Nu o aruncăm și nu apăsăm tare pe roți.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Bine, Tati. Am grijă de ea.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "zborul"
+}

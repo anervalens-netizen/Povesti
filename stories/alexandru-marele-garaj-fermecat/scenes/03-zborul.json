@@ -1,0 +1,52 @@
+{
+  "id": "zborul",
+  "title": "Zborul prea mare",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Racheta Roșie urcă peste o pernă, coborî pe covor și trecu pe sub scaun. Apoi Alexandru o împinse foarte tare.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "Mașinuța zbură prin aer... și ateriză cu un poc!",
+      "delivery": "pauză de suspans",
+      "pause_after_ms": 1000
+    },
+    {
+      "role": "alexandru",
+      "text": "Ooo... roata ei stă strâmb.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "racheta-rosie",
+      "text": "Au... cred că roata mea s-a lovit.",
+      "delivery": "îngrijorată",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Tu vorbești?",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "racheta-rosie",
+      "text": "Toate mașinuțele vorbesc. Dar numai copiii care le iubesc ne pot auzi. Nu ai vrut să mă strici, însă acum am nevoie de ajutor.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Îmi pare rău. Te reparăm!",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "poarta"
+}

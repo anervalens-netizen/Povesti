@@ -1,0 +1,22 @@
+{
+  "id": "atelier",
+  "title": "Atelierul calm",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "narrator",
+      "text": "Stelele galbene duceau la atelier. Acolo era o lanternă de rezervă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "alexandru",
+      "text": "Am găsit și mai multă lumină. Acum urmăm stelele albastre.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "iesire"
+}

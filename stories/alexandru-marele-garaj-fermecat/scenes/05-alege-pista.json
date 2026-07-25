@@ -1,0 +1,41 @@
+{
+  "id": "alege-pista",
+  "title": "Două piste",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "fulger",
+      "text": "Bun venit, Alexandru. Eu sunt Fulger Albastru. Pentru reparație avem nevoie de o roată potrivită, o piuliță de argint și o picătură de ulei fermecat.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "narrator",
+      "text": "În fața lor porneau două drumuri: pista roșie trecea peste un pod înalt, iar pista albastră intra într-un tunel cu lumini.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "fulger",
+      "text": "Ce alegi: podul roșu sau tunelul albastru?",
+      "delivery": "curios",
+      "pause_after_ms": 1200
+    }
+  ],
+  "choices": [
+    {
+      "id": "rosu",
+      "label": "Pista roșie",
+      "prompt": "Mergem peste pod!",
+      "next_scene": "podul-rosu"
+    },
+    {
+      "id": "albastru",
+      "label": "Pista albastră",
+      "prompt": "Intrăm în tunel!",
+      "next_scene": "tunelul-albastru"
+    }
+  ],
+  "next_scene": null
+}

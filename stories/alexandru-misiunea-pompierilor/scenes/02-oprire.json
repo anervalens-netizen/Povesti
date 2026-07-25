@@ -1,0 +1,22 @@
+{
+  "id": "oprire",
+  "title": "Stop sigur",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "alexandru",
+      "text": "Stai. Eu nu intru lângă fum sau foc. Îl chem pe Tati și pe pompieri.",
+      "delivery": "",
+      "pause_after_ms": 650
+    },
+    {
+      "role": "comandant",
+      "text": "Alegere corectă.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "chemare"
+}

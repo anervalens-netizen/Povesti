@@ -1,0 +1,27 @@
+{
+  "id": "traseu",
+  "title": "Drumul liber",
+  "kind": "choice",
+  "direction": "",
+  "segments": [
+    {
+      "role": "comandant",
+      "text": "Trebuie să eliberăm drumul pentru autospecială. Mutăm mașinuțele cu mâna sau împingem cutia întreagă?",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [
+    {
+      "id": "mana",
+      "label": "Le mutăm cu grijă",
+      "next_scene": "grija"
+    },
+    {
+      "id": "cutie",
+      "label": "Împingem cutia",
+      "next_scene": "cutia"
+    }
+  ],
+  "next_scene": null
+}

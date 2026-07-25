@@ -1,0 +1,16 @@
+{
+  "id": "roata-mare",
+  "title": "Prea mare",
+  "kind": "story",
+  "direction": "",
+  "segments": [
+    {
+      "role": "mesterica",
+      "text": "Aceasta este prea mare. Nu forțăm o piesă care nu se potrivește. Mai privim o dată, cu răbdare.",
+      "delivery": "",
+      "pause_after_ms": 650
+    }
+  ],
+  "choices": [],
+  "next_scene": "muntele-rotilor"
+}

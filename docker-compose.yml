@@ -1,0 +1,14 @@
+services:
+  povesti:
+    build: .
+    container_name: povesti-studio
+    env_file: .env
+    environment:
+      APP_HOST: 0.0.0.0
+    ports:
+      - "127.0.0.1:8090:8090"
+    volumes:
+      - ./stories:/app/stories
+      - ./media:/app/media
+      - ./data:/app/data
+    restart: unless-stopped
