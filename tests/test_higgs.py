@@ -25,9 +25,16 @@ def test_published_stories_are_higgs_ready():
             "profiles"
         ]
     )
-    assert len(stories) == 8
-    assert sum(len(story.scenes) for story in stories) == 69
-    assert sum(len(scene.segments) for story in stories for scene in story.scenes) == 415
+    assert len(stories) == 18
+    assert sum(len(story.scenes) for story in stories) == 149
+    assert sum(len(scene.segments) for story in stories for scene in story.scenes) == 925
+
+    explorer_series = [
+        story for story in stories if story.series == "Clubul Micilor Exploratori"
+    ]
+    assert len(explorer_series) == 10
+    assert [story.series_episode for story in explorer_series] == list(range(1, 11))
+
     for story in stories:
         assert story.schema_version == 2
         assert story.narrator_voice in profiles
@@ -91,17 +98,17 @@ def test_quality_audit_warns_about_oversized_turn():
     assert any("100 de cuvinte" in warning for warning in warnings)
 
 
-def test_higgs_payload_uses_default_api_voice_and_local_reference(tmp_path: Path):
+def _voice_fixture(tmp_path: Path, name: str = "narator") -> tuple[Path, Path]:
     voice_dir = tmp_path / "voices"
     voice_dir.mkdir()
-    (voice_dir / "tati.wav").write_bytes(b"RIFF-test")
+    (voice_dir / f"{name}.wav").write_bytes(b"RIFF-test")
     manifest = voice_dir / "voices.json"
     manifest.write_text(
         json.dumps(
             {
                 "profiles": {
-                    "tati": {
-                        "reference_audio": "tati.wav",
+                    name: {
+                        "reference_audio": f"{name}.wav",
                         "reference_text": "Acesta este transcriptul exact.",
                         "prefix": "<|prosody:pitch_low|>",
                         "description": "test",
@@ -112,47 +119,34 @@ def test_higgs_payload_uses_default_api_voice_and_local_reference(tmp_path: Path
         ),
         encoding="utf-8",
     )
-    test_settings = replace(
-        settings,
-        voice_dir=voice_dir,
-        voice_manifest=manifest,
-        higgs_api_voice="default",
-        higgs_top_p=0.95,
-        higgs_require_references=True,
+    return voice_dir, manifest
+
+
+def test_higgs_payload_uses_named_api_voice_and_local_reference(tmp_path: Path):
+    voice_dir, manifest = _voice_fixture(tmp_path, "tati")
+    provider = HiggsTTSProvider(
+        replace(
+            settings,
+            voice_dir=voice_dir,
+            voice_manifest=manifest,
+            higgs_api_voice="default",
+            higgs_top_p=0.95,
+            higgs_require_references=True,
+            higgs_use_profile_voice=False,
+        )
     )
-    provider = HiggsTTSProvider(test_settings)
     payload = provider.build_payload(
         text="<|emotion:affection|>Sunt aici.", profile_voice="tati"
     )
-
     assert payload["voice"] == "default"
     assert payload["top_p"] == 0.95
     assert payload["references"][0]["text"] == "Acesta este transcriptul exact."
-    audio_path = payload["references"][0]["audio_path"]
-    assert audio_path.startswith("data:audio/")
-    assert ";base64," in audio_path
+    assert payload["references"][0]["audio_path"].startswith("data:audio/")
+    assert ";base64," in payload["references"][0]["audio_path"]
 
 
 def test_higgs_payload_omits_empty_api_voice(tmp_path: Path):
-    voice_dir = tmp_path / "voices"
-    voice_dir.mkdir()
-    (voice_dir / "narator.wav").write_bytes(b"RIFF-test")
-    manifest = voice_dir / "voices.json"
-    manifest.write_text(
-        json.dumps(
-            {
-                "profiles": {
-                    "narator": {
-                        "reference_audio": "narator.wav",
-                        "reference_text": "Transcript exact.",
-                        "prefix": "",
-                        "description": "test",
-                    }
-                }
-            }
-        ),
-        encoding="utf-8",
-    )
+    voice_dir, manifest = _voice_fixture(tmp_path)
     provider = HiggsTTSProvider(
         replace(
             settings,
@@ -160,34 +154,16 @@ def test_higgs_payload_omits_empty_api_voice(tmp_path: Path):
             voice_manifest=manifest,
             higgs_api_voice="",
             higgs_require_references=True,
+            higgs_use_profile_voice=False,
         )
     )
-
     payload = provider.build_payload(text="Poveste.", profile_voice="narator")
-
     assert "voice" not in payload
+    assert "references" in payload
 
 
 def test_higgs_payload_uses_uploaded_profile_voice(tmp_path: Path):
-    voice_dir = tmp_path / "voices"
-    voice_dir.mkdir()
-    (voice_dir / "narator.wav").write_bytes(b"RIFF-test")
-    manifest = voice_dir / "voices.json"
-    manifest.write_text(
-        json.dumps(
-            {
-                "profiles": {
-                    "narator": {
-                        "reference_audio": "narator.wav",
-                        "reference_text": "Transcript exact.",
-                        "prefix": "",
-                        "description": "test",
-                    }
-                }
-            }
-        ),
-        encoding="utf-8",
-    )
+    voice_dir, manifest = _voice_fixture(tmp_path)
     provider = HiggsTTSProvider(
         replace(
             settings,
@@ -197,8 +173,6 @@ def test_higgs_payload_uses_uploaded_profile_voice(tmp_path: Path):
             higgs_require_references=True,
         )
     )
-
     payload = provider.build_payload(text="Poveste.", profile_voice="narator")
-
     assert payload["voice"] == "narator"
     assert "references" not in payload
