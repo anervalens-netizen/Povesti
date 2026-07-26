@@ -1,3 +1,31 @@
-{% extends "base.html" %}{% block title %}Bibliotecă · Povești{% endblock %}
-{% block content %}<section class="hero"><p class="eyebrow">SERIA MARELE GARAJ FERMECAT</p><h1>Aventuri în care Alexandru conduce povestea</h1><p>Povești interactive, scene audio separate și voci configurabile pentru fiecare personaj.</p></section>
-<section class="grid">{% for story in stories %}<article class="card"><div class="episode">EPISODUL {{ story.episode }}</div><h2>{{ story.title }}</h2><p>{{ story.summary }}</p><div class="tags">{% for t in story.themes %}<span>{{ t }}</span>{% endfor %}</div><div class="meta">{{ story.estimated_minutes }} min · {{ story.age_min }}–{{ story.age_max }} ani</div><a class="button" href="/stories/{{ story.id }}">Deschide povestea</a></article>{% endfor %}</section>{% endblock %}
+{% extends "base.html" %}
+{% block title %}Bibliotecă · Povești{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">BIBLIOTECA LUI ALEXANDRU</p>
+  <h1>Aventuri în care Alexandru conduce povestea</h1>
+  <p>{{ story_count }} povești interactive, scene audio separate și voci configurabile pentru fiecare personaj.</p>
+</section>
+
+{% for series_name, stories in series_groups.items() %}
+<section class="series-section">
+  <div class="series-heading">
+    <p class="eyebrow">SERIE</p>
+    <h2>{{ series_name }}</h2>
+    <p>{{ stories|length }} episoade</p>
+  </div>
+  <div class="grid">
+    {% for story in stories %}
+    <article class="card">
+      <div class="episode">EPISODUL {{ story.series_episode or story.episode }}</div>
+      <h2>{{ story.title }}</h2>
+      <p>{{ story.summary }}</p>
+      <div class="tags">{% for t in story.themes %}<span>{{ t }}</span>{% endfor %}</div>
+      <div class="meta">{{ story.estimated_minutes }} min · {{ story.age_min }}–{{ story.age_max }} ani</div>
+      <a class="button" href="/stories/{{ story.id }}">Deschide povestea</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+{% endblock %}

@@ -47,14 +47,23 @@ def _render_job(story_id: str, force: bool) -> None:
             ),
         )
         _set_job(story_id, state="done", completed=total, total=total)
-    except Exception as exc:  # status must survive provider failures
+    except Exception as exc:
         _set_job(story_id, state="error", error=str(exc))
 
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
+    series_groups: dict[str, list] = {}
+    for story in catalog.list():
+        series_groups.setdefault(story.series, []).append(story)
     return templates.TemplateResponse(
-        request, "index.html", {"stories": catalog.list(), "settings": settings}
+        request,
+        "index.html",
+        {
+            "series_groups": series_groups,
+            "story_count": sum(len(items) for items in series_groups.values()),
+            "settings": settings,
+        },
     )
 
 
