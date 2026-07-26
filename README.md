@@ -5,8 +5,8 @@ Studio local-first pentru povești audio interactive în limba română. Alexand
 ## Ce conține
 
 - bibliotecă web grupată pe serii;
-- **18 episoade complete, 149 de scene și 925 de replici regizate**;
-- două serii: **Marele Garaj Fermecat** și **Clubul Micilor Exploratori**;
+- **28 de episoade complete, 229 de scene și 1.435 de replici regizate**;
+- trei serii: **Marele Garaj Fermecat**, **Clubul Micilor Exploratori** și **Atelierul Micilor Inventatori**;
 - câmp separat `text` pentru interfață și `tts_text` gata de trimis la Higgs;
 - gramatică Higgs strictă și eliminarea comenzilor contradictorii;
 - referințe vocale reutilizate pentru narator, Alexandru, Tati și personaje;
@@ -69,13 +69,26 @@ Profilurile locale aleg mostra vocală. Aplicația transmite fiecare replică se
 9. **Alexandru și Festivalul Prieteniei** — incluziune și negociere.
 10. **Alexandru și Muntele Pașilor Mici** — perseverență și progres.
 
+### Atelierul Micilor Inventatori — 10 episoade
+
+1. **Alexandru și Robotul care Încurca Pașii** — secvențe și instrucțiuni clare.
+2. **Alexandru și Turnul care Voia să Atingă Norii** — stabilitate și baze solide.
+3. **Alexandru și Podul Formelor Potrivite** — forme și funcții.
+4. **Alexandru și Cutia cu O Mie de Piese** — clasificare și organizare.
+5. **Alexandru și Beculețul care se Temuse de Întuneric** — diagnostic și siguranță.
+6. **Alexandru și Fabrica Sunetelor** — ascultare și controlul zgomotului.
+7. **Alexandru și Ceasul care Voia Totul Acum** — răbdare și timp.
+8. **Alexandru și Invenția care Nu Ieșea** — experiment și perseverență.
+9. **Alexandru și Invenția lui Bip** — feedback blând și încredere.
+10. **Alexandru și Marea Expoziție a Inventatorilor** — cooperare și resurse.
+
 ## Validare
 
 ```bash
 python scripts/validate_stories.py --strict-quality
 python scripts/validate_stories.py --check-audio
 python scripts/preview_higgs_payload.py \
-  clubul-exploratorilor-harta-schimbatoare \
+  atelierul-inventatorilor-robotul-pasilor \
   --scene start --segment 1
 pytest -q
 ```
@@ -86,4 +99,4 @@ pytest -q
 - Folosește numai voci proprii, sintetice sau înregistrate cu acord explicit.
 - Modelul Higgs TTS 3 are propria licență Boson; repo-ul nu distribuie modelul sau greutățile.
 
-Documentație: [Higgs TTS 3](docs/HIGGS_TTS_3.md), [format povești](docs/STORY_FORMAT.md), [furnizori TTS](docs/TTS_PROVIDERS.md).
+Documentație: [Higgs TTS 3](docs/HIGGS_TTS_3.md), [format povești](docs/STORY_FORMAT.md), [story packs](docs/STORY_PACKS.md), [furnizori TTS](docs/TTS_PROVIDERS.md).

@@ -25,15 +25,20 @@ def test_published_stories_are_higgs_ready():
             "profiles"
         ]
     )
-    assert len(stories) == 18
-    assert sum(len(story.scenes) for story in stories) == 149
-    assert sum(len(scene.segments) for story in stories for scene in story.scenes) == 925
+    assert len(stories) == 28
+    assert sum(len(story.scenes) for story in stories) == 229
+    assert sum(len(scene.segments) for story in stories for scene in story.scenes) == 1435
 
     explorer_series = [
         story for story in stories if story.series == "Clubul Micilor Exploratori"
     ]
+    inventor_series = [
+        story for story in stories if story.series == "Atelierul Micilor Inventatori"
+    ]
     assert len(explorer_series) == 10
+    assert len(inventor_series) == 10
     assert [story.series_episode for story in explorer_series] == list(range(1, 11))
+    assert [story.series_episode for story in inventor_series] == list(range(1, 11))
 
     for story in stories:
         assert story.schema_version == 2
