@@ -22,15 +22,30 @@ class StoryCatalog:
             return yaml.safe_load(path.read_text(encoding="utf-8"))
         raise ValueError(f"Format nesuportat: {path}")
 
+    def _read_jsonl(self, path: Path) -> list[dict]:
+        stories: list[dict] = []
+        for line_number, line in enumerate(
+            path.read_text(encoding="utf-8").splitlines(), start=1
+        ):
+            if not line.strip():
+                continue
+            try:
+                stories.append(json.loads(line))
+            except json.JSONDecodeError as exc:
+                raise ValueError(
+                    f"JSON invalid în {path}, linia {line_number}: {exc}"
+                ) from exc
+        if not stories:
+            raise ValueError(f"Fișierul de serie {path} nu conține povești")
+        return stories
+
     def _read_directory(self, path: Path) -> dict:
         story_path = path / "story.json"
         if not story_path.exists():
             raise ValueError(f"Lipsește {story_path}")
         data = self._read(story_path)
-        # Schema v2 stores the complete episode in one reviewable file.
         if data.get("scenes"):
             return data
-        # Backward compatibility with the initial split-scene format.
         scene_dir = path / "scenes"
         scene_paths = sorted(scene_dir.glob("*.json")) + sorted(
             scene_dir.glob("*.yaml")
@@ -47,6 +62,10 @@ class StoryCatalog:
                 stories.append(Story.model_validate(self._read_directory(path)))
             elif path.is_file() and path.suffix.lower() in {".json", ".yaml", ".yml"}:
                 stories.append(Story.model_validate(self._read(path)))
+            elif path.is_file() and path.suffix.lower() == ".jsonl":
+                stories.extend(
+                    Story.model_validate(data) for data in self._read_jsonl(path)
+                )
         return sorted(stories, key=lambda story: (story.episode, story.title))
 
     def get(self, story_id: str) -> Story:
