@@ -44,7 +44,8 @@ class StoryCatalog:
 
     def _read_story_pack(self, path: Path) -> list[dict]:
         try:
-            compressed = base64.b64decode(path.read_text(encoding="ascii"), validate=True)
+            encoded = path.read_text(encoding="ascii").strip()
+            compressed = base64.b64decode(encoded, validate=True)
             content = gzip.decompress(compressed).decode("utf-8")
         except (ValueError, OSError, UnicodeError) as exc:
             raise ValueError(f"Story pack invalid: {path}") from exc
