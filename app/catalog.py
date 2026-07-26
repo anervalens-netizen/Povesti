@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import gzip
 import json
 import shutil
 from pathlib import Path
@@ -22,22 +24,31 @@ class StoryCatalog:
             return yaml.safe_load(path.read_text(encoding="utf-8"))
         raise ValueError(f"Format nesuportat: {path}")
 
-    def _read_jsonl(self, path: Path) -> list[dict]:
+    def _parse_jsonl(self, content: str, source: Path) -> list[dict]:
         stories: list[dict] = []
-        for line_number, line in enumerate(
-            path.read_text(encoding="utf-8").splitlines(), start=1
-        ):
+        for line_number, line in enumerate(content.splitlines(), start=1):
             if not line.strip():
                 continue
             try:
                 stories.append(json.loads(line))
             except json.JSONDecodeError as exc:
                 raise ValueError(
-                    f"JSON invalid în {path}, linia {line_number}: {exc}"
+                    f"JSON invalid în {source}, linia {line_number}: {exc}"
                 ) from exc
         if not stories:
-            raise ValueError(f"Fișierul de serie {path} nu conține povești")
+            raise ValueError(f"Fișierul de serie {source} nu conține povești")
         return stories
+
+    def _read_jsonl(self, path: Path) -> list[dict]:
+        return self._parse_jsonl(path.read_text(encoding="utf-8"), path)
+
+    def _read_story_pack(self, path: Path) -> list[dict]:
+        try:
+            compressed = base64.b64decode(path.read_text(encoding="ascii"), validate=True)
+            content = gzip.decompress(compressed).decode("utf-8")
+        except (ValueError, OSError, UnicodeError) as exc:
+            raise ValueError(f"Story pack invalid: {path}") from exc
+        return self._parse_jsonl(content, path)
 
     def _read_directory(self, path: Path) -> dict:
         story_path = path / "story.json"
@@ -65,6 +76,10 @@ class StoryCatalog:
             elif path.is_file() and path.suffix.lower() == ".jsonl":
                 stories.extend(
                     Story.model_validate(data) for data in self._read_jsonl(path)
+                )
+            elif path.is_file() and path.name.endswith(".jsonl.gz.b64"):
+                stories.extend(
+                    Story.model_validate(data) for data in self._read_story_pack(path)
                 )
         return sorted(stories, key=lambda story: (story.episode, story.title))
 
