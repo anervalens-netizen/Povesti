@@ -71,6 +71,8 @@ class Story(BaseModel):
     schema_version: int = 2
     id: str = Field(pattern=r"^[a-z0-9_-]+$")
     episode: int = Field(ge=1)
+    series: str = "Marele Garaj Fermecat"
+    series_episode: int | None = Field(default=None, ge=1)
     title: str
     subtitle: str = ""
     summary: str
