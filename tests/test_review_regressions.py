@@ -101,3 +101,39 @@ def test_audio_cache_changes_with_provider_configuration(tmp_path: Path):
     assert first_provider.calls == 1
     assert second_provider.calls == 1
     assert len(list((tmp_path / story.id / "final").glob("*.wav"))) == 2
+
+
+@pytest.mark.parametrize('packed', [False, True])
+def test_save_rejects_ids_already_in_a_series(tmp_path: Path, packed: bool):
+    import base64
+    import gzip
+    from app.catalog import StoryCatalog
+    story = make_story()
+    data = story.model_dump_json() + '\n'
+    if packed:
+        (tmp_path / 'series.jsonl.gz.b64').write_text(base64.b64encode(gzip.compress(data.encode())).decode())
+    else:
+        (tmp_path / 'series.jsonl').write_text(data)
+    for overwrite in [False, True]:
+        with pytest.raises(FileExistsError):
+            StoryCatalog(tmp_path).save(story, overwrite=overwrite)
+    assert not (tmp_path / story.id).exists()
+
+
+@pytest.mark.parametrize('text', ['...Salut', ' … Salut', '... ...Salut'])
+def test_fallback_does_not_put_a_pause_before_speech(text: str):
+    from app.higgs import compile_higgs_text
+    assert compile_higgs_text(text, 'cald').endswith('Salut')
+    assert '<|prosody:pause|>' not in compile_higgs_text(text, 'cald')
+
+
+def test_save_creates_a_new_catalog_and_allows_explicit_directory_overwrite(tmp_path: Path):
+    from app.catalog import StoryCatalog
+    catalog = StoryCatalog(tmp_path / 'new-catalog')
+    story = make_story()
+    catalog.save(story)
+    with pytest.raises(FileExistsError):
+        catalog.save(story)
+    updated = story.model_copy(update={'title': 'Updated'})
+    catalog.save(updated, overwrite=True)
+    assert catalog.get(story.id).title == 'Updated'
