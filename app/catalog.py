@@ -92,6 +92,22 @@ class StoryCatalog:
 
     def save(self, story: Story, overwrite: bool = False) -> Path:
         story_path = self.story_dir / story.id
+        # A series entry has no directory to replace. Never shadow it, even
+        # for an explicit directory overwrite; that would leave duplicate IDs.
+        for source in self.story_dir.iterdir() if self.story_dir.exists() else ():
+            if source == story_path:
+                continue
+            records = []
+            if source.is_file() and source.name.endswith('.jsonl.gz.b64'):
+                records = self._read_story_pack(source)
+            elif source.is_file() and source.suffix.lower() == '.jsonl':
+                records = self._read_jsonl(source)
+            elif source.is_file() and source.suffix.lower() in {'.json', '.yaml', '.yml'}:
+                records = [self._read(source)]
+            elif source.is_dir() and (source / 'story.json').is_file():
+                records = [self._read_directory(source)]
+            if any(record.get('id') == story.id for record in records):
+                raise FileExistsError(source)
         if story_path.exists() and not overwrite:
             raise FileExistsError(story_path)
         if story_path.exists():

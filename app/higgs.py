@@ -224,7 +224,9 @@ def compile_higgs_text(text: str, delivery: str = "") -> str:
         )
         if token
     )
-    body = re.sub(r"\s*\.{3,}\s*", " <|prosody:pause|> ", text).strip()
+    # Leading ellipses indicate hesitation, not an inline pause before speech.
+    text = re.sub(r"^(?:\s*(?:\.{3,}|…))+\s*", "", text)
+    body = re.sub(r"\s*(?:\.{3,}|…)\s*", " <|prosody:pause|> ", text).strip()
     for pattern, tag in (
         (r"^(Hehe|Haha|Ha-ha)", "laughter"),
         (r"^(Hmm|Mmm)", "humming"),
